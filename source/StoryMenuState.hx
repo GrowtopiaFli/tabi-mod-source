@@ -54,7 +54,7 @@ class StoryMenuState extends MusicBeatState
 	];
 
 	var weekNames:Array<String> = [
-		"",
+		"",//"she died"
 		"Daddy Dearest",
 		"Spooky Month",
 		"PICO",
@@ -352,6 +352,7 @@ class StoryMenuState extends MusicBeatState
 			if (accepted && curWeek > 6)
 			{
 				selectWeek();
+				remove(_pad);
 			}
 		}
 

@@ -32,13 +32,6 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		FlxG.cameras.add(higherCam);
 		
-		#if (web || android)
-		_pad = new FlxVirtualPad(NONE, A_B);
-		_pad.alpha = 0.75;
-		add(_pad);
-		_pad.cameras = [higherCam];
-		#end
-	
 		var daStage = PlayState.curStage;
 		var daBf:String = '';
 		switch (daStage)
@@ -88,6 +81,12 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		bf.playAnim('firstDeath');
+	
+		#if (web || android)
+		_pad = new FlxVirtualPad(NONE, A_B);
+		_pad.alpha = 0.65;
+		this.add(_pad);
+		#end
 	}
 
 	override function update(elapsed:Float)

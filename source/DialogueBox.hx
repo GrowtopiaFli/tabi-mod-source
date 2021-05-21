@@ -50,6 +50,8 @@ class DialogueBox extends FlxSpriteGroup
 
 	// SECOND DIALOGUE FOR THE PIXEL SHIT INSTEAD???
 	var swagDialogue:FlxTypeText;
+	//SCREEN TOUCH WOOOO
+	var screenJustTouched:Bool = false;
 
 	var dropText:FlxText;
 
@@ -425,7 +427,16 @@ class DialogueBox extends FlxSpriteGroup
 		whitelisted = ['chromeoffset', 'soundoverwritestop', 'musicstop', 'music', 'musicloop', 'soundoverwrite', 'sound', 'class', 'class-use', 'bg', 'bghide', 'makeGraphic', 'enableTypeSound', 'disableTypeSound', 'switchSound', 'fadeIn', 'fadeOut'];
 
 		//if ((FlxG.keys.justPressed.ANY) || (dialogueList.length > 0 && whitelisted.contains(curCharacter)) && dialogueStarted == true && !paused && !isFade)
-		if ((controls.ACCEPT) || (dialogueList.length > 0 && whitelisted.contains(curCharacter)) && dialogueStarted == true && !paused && !isFade)
+		for (touch in FlxG.touches.list)
+		{
+			screenJustTouched = false;
+			
+			if (touch.justReleased){
+				screenJustTouched = true;
+			}
+		}
+	
+		if ((controls.ACCEPT) || (screenJustTouched) || (dialogueList.length > 0 && whitelisted.contains(curCharacter)) && dialogueStarted == true && !paused && !isFade)
 		{
 			var queuePause:Bool = false;
 			queueFade = false;

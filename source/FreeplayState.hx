@@ -290,6 +290,9 @@ class FreeplayState extends MusicBeatState
 
 		if (accepted)
 		{
+		    #if (web || android)
+		    remove(_pad);
+		    #end
 			if (FlxG.sound.music.playing)
 			{
 				FlxG.sound.music.stop();
