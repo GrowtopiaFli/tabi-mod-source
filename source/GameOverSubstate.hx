@@ -85,8 +85,10 @@ class GameOverSubstate extends MusicBeatSubstate
 		#if (web || android)
 		_pad = new FlxVirtualPad(NONE, A_B);
 		_pad.alpha = 0.75;
-		_pad.setGraphicSize = 1.2;
+		_pad.setGraphicSize = 0.7;
 		//sorry if this shit above is stupid
+		/*_pad.x += 10;
+		_pad.y -= 10;*/
 		this.add(_pad);
 		#end
 	}
