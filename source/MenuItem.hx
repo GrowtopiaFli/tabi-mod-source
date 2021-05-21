@@ -17,7 +17,7 @@ class MenuItem extends FlxSpriteGroup
 	public function new(x:Float, y:Float, weekNum:Int = 0)
 	{
 		super(x, y);
-		week = new FlxSprite().loadGraphic(Paths.image('storymenu/' + Highscore.weekData[weekNum]));
+		week = new FlxSprite().loadGraphic(Paths.image('storymenu/' + Highscore.weekDataOrig[weekNum]));
 		add(week);
 		fuckingWeek = weekNum;
 	}

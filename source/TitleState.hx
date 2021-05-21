@@ -50,6 +50,15 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		isReady = false;
+		
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+		
+		#if (android || web)
+		Highscore.weekData = [Highscore.weekData[Highscore.weekData.length - 1]];
+		Highscore.storyWeekNames = [Highscore.storyWeekNames[Highscore.storyWeekNames.length - 1]];
+		#end
 
 		#if polymod
 		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
@@ -207,7 +216,9 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
+		#if !web
 		FlxG.mouse.visible = false;
+		#end
 
 		if (initialized)
 			skipIntro();

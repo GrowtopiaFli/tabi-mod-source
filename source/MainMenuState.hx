@@ -14,6 +14,11 @@ import flixel.util.FlxColor;
 //import io.newgrounds.NG;
 import lime.app.Application;
 
+import flixel.FlxCamera;
+#if (web || android)
+import ui.FlxVirtualPad;
+#end
+
 using StringTools;
 
 class MainMenuState extends MusicBeatState
@@ -30,11 +35,36 @@ class MainMenuState extends MusicBeatState
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
+	
+	var mainCam:FlxCamera;
+	var higherCam:FlxCamera;
+	
+	#if (web || android)
+	var _pad:FlxVirtualPad;
+	#end
 
 	override function create()
 	{
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
+		
+		mainCam = new FlxCamera();
+		higherCam = new FlxCamera();
+		higherCam.bgColor.alpha = 0;
+	
+		FlxG.cameras.reset(mainCam);
+		FlxG.cameras.add(higherCam);
+		
+		FlxCamera.defaultCameras = [mainCam];
+		
+		#if (web || android)
+		_pad = new FlxVirtualPad(UP_DOWN, A_B);
+		_pad.alpha = 0.75;
+		add(_pad);
+		_pad.cameras = [higherCam];
+		#end
+		
+		higherCam.y -= 100;
 
 		if (!FlxG.sound.music.playing)
 		{
@@ -87,8 +117,16 @@ class MainMenuState extends MusicBeatState
 		}
 
 		FlxG.camera.follow(camFollow, null, 0.06);
+		
+		var daMultiplier:Float = 2;
+		var daString:String = "Tabi v" + CurrentVersion.get() + "\nFNF v" + Application.current.meta.get('version') + " Commit d3cd2e2";
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 18 * 2, 0, "Tabi v" + CurrentVersion.get() + "\nFNF v" + Application.current.meta.get('version') + " Commit d3cd2e2", 12);
+		#if (web || android)
+		daMultiplier++;
+		daString += "\nVisual Controls by luckydog7";
+		#end
+
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 18 * daMultiplier, 0, daString, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -111,24 +149,53 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UP_P)
+			var upped:Bool = false;
+			var downed:Bool = false;
+			var accepted:Bool = false;
+			var backed:Bool = false;
+			
+			#if (web || android)
+			accepted = controls.ACCEPT || _pad.buttonA.justPressed;
+			backed = controls.BACK || _pad.buttonB.justPressed;
+			upped = controls.UP_P || _pad.buttonUp.justPressed;
+			downed = controls.DOWN_P || _pad.buttonDown.justPressed;
+			#if android
+			if (FlxG.android.justReleased.BACK)
+			{
+			backed = true;
+			}
+			#end
+			#else
+			accepted = controls.ACCEPT;
+			backed = controls.BACK;
+			upped = controls.UP_P;
+			downed = controls.DOWN_P;
+			#end
+		
+			if (upped)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.DOWN_P)
+			if (downed)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
+			
+			if (Highscore.getInput() && FlxG.mouse.wheel != 0)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				changeItem(FlxG.mouse.wheel * -1);
+			}
 
-			if (controls.BACK)
+			if (backed)
 			{
 				FlxG.switchState(new TitleState());
 			}
 
-			if (controls.ACCEPT)
+			if (accepted)
 			{
 				if (optionShit[curSelected] == 'donate')
 				{

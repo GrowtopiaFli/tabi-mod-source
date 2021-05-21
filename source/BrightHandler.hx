@@ -19,7 +19,7 @@ class BrightHandler
 	{
 		if (Highscore.getPhoto())
 		{
-			contrast = 0.0;
+			contrast = 1.0;
 		}
 		brightShader.shader.data.contrast.value = [contrast];
 	}
