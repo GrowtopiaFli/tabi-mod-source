@@ -18,6 +18,7 @@ import Discord.DiscordClient;
 import flixel.FlxCamera;
 #if (web || android)
 import ui.FlxVirtualPad;
+import vcontrols.VisualControls;
 #end
 
 using StringTools;
@@ -123,7 +124,14 @@ class SettingsMenu extends MusicBeatState
 	
 	ourFuckingList.push('Downscroll $downScrollShit');
 	ourFuckingList.push('New Input System $inputShit');
+	#if (web || android)
+	if (VisualControls.keyboardisenabled)
+	{
 	ourFuckingList.push('Custom Keybindings');
+	}
+	#else
+	ourFuckingList.push('Custom Keybindings');
+	#end
 	ourFuckingList.push('Visual Effects');
 	ourFuckingList.push('Voicelines $voiceShit');
 	ourFuckingList.push('Russian Language $rusShit');
