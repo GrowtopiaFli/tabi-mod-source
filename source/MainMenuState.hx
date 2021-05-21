@@ -62,8 +62,8 @@ class MainMenuState extends MusicBeatState
 		_pad.alpha = 0.75;
 		add(_pad);
 		_pad.cameras = [higherCam];
-	    _pad.y -= 0.7;
-	    //idfk lmao
+		_pad.y -= 0.7;
+		//idfk lmao
 		#end
 		
 		higherCam.y -= 100;
