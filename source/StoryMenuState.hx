@@ -352,7 +352,9 @@ class StoryMenuState extends MusicBeatState
 			if (accepted && curWeek > 6)
 			{
 				selectWeek();
+				#if (web || android)
 				remove(_pad);
+				#end
 			}
 		}
 
