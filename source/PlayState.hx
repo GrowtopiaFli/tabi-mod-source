@@ -2048,6 +2048,16 @@ class PlayState extends MusicBeatState
 		daShitText = "Offset Testing";
 		#end
 
+        #if (web || android)
+		if (FlxG.android.justReleased.BACK && startedCountdown && canPause)
+		{
+			persistentUpdate = false;
+			persistentDraw = true;
+			paused = true;
+
+			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		}
+		#else //how could gweb forget this
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
@@ -2056,6 +2066,7 @@ class PlayState extends MusicBeatState
 
 			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		}
+		#end
 
 		#if !animTest
 		if (FlxG.keys.justPressed.SEVEN)
