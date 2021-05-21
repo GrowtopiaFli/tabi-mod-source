@@ -2048,7 +2048,7 @@ class PlayState extends MusicBeatState
 		daShitText = "Offset Testing";
 		#end
 
-        #if (web || android)
+		#if (web || android)
 		if (FlxG.android.justReleased.BACK && startedCountdown && canPause)
 		{
 			persistentUpdate = false;

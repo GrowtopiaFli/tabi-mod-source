@@ -127,7 +127,7 @@ class SettingsMenu extends MusicBeatState
 	#if (web || android)
 	if (VisualControls.keyboardisenabled)
 	{
-	ourFuckingList.push('Custom Keybindings');
+		ourFuckingList.push('Custom Keybindings');
 	}
 	#else
 	ourFuckingList.push('Custom Keybindings');
