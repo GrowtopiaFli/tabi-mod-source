@@ -1,0 +1,41 @@
+---SECTION START---
+:musicloop:bgms/1
+:disableTypeSound:
+:switchSound:tabiText
+:enableTypeSound:
+:tabi-mad:%d1%
+:tabi-mad:%d2%
+:switchSound:bfText
+:bf-right:%d3%
+:switchSound:tabiText
+:tabi-mad:%d4%
+:switchSound:bfText
+:bf-right:%d5%
+:musicstop:
+:switchSound:tabiText
+:tabi-mad:%kill%
+---SECTION END---
+
+---SECTION START---
+:musicloop:bgms/1
+:disableTypeSound:
+:switchSound:bfText
+:soundoverwrite:voices/tabi2/1
+:tabi-mad:%d1%
+:soundoverwrite:voices/tabi2/2
+:tabi-mad:%d2%
+:soundoverwritestop:
+:enableTypeSound:
+:bf-right:%d3%
+:disableTypeSound:
+:soundoverwrite:voices/tabi2/3
+:tabi-mad:%d4%
+:soundoverwritestop:
+:enableTypeSound:
+:bf-right:%d5%
+:disableTypeSound:
+:musicstop:
+:soundoverwrite:voices/tabi2/4
+:tabi-mad:%kill%
+:soundoverwritestop:
+---SECTION END---
