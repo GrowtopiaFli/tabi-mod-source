@@ -12,6 +12,7 @@ class HealthIcon extends FlxSprite
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super();
+		//changed the animated crap
 		loadGraphic(Paths.image('iconGrid'), true, 150, 150);
 
 		antialiasing = true;
@@ -34,6 +35,10 @@ class HealthIcon extends FlxSprite
 		animation.add('parents-christmas', [17], 0, false, isPlayer);
 		animation.add('monster', [19, 20], 0, false, isPlayer);
 		animation.add('monster-christmas', [19, 20], 0, false, isPlayer);
+		animation.add('bf-tabi', [0, 1], 0, false, isPlayer);
+		animation.add('bf-tabi-crazy', [0, 1], 0, false, isPlayer);
+		animation.add('tabi', [24, 25], 0, false, isPlayer);
+		animation.add('tabi-crazy', [26, 27], 0, false, isPlayer);
 		animation.play(char);
 		scrollFactor.set();
 	}

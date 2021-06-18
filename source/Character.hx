@@ -16,6 +16,8 @@ class Character extends FlxSprite
 	public var curCharacter:String = 'bf';
 
 	public var holdTimer:Float = 0;
+	
+	public var daZoom:Float = 1;
 
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
 	{
@@ -59,6 +61,48 @@ class Character extends FlxSprite
 				addOffset('hairFall', 0, -9);
 
 				addOffset('scared', -2, -17);
+
+				playAnim('danceRight');
+				
+			case 'gf-tabi':
+				// GIRLFRIEND CODE
+				tex = Paths.getSparrowAtlas('tabi/GF_TABI');
+				frames = tex;
+				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
+				animation.addByPrefix('singLEFT', 'GF left note', 24, false);
+				animation.addByPrefix('singRIGHT', 'GF Right Note', 24, false);
+				animation.addByPrefix('singUP', 'GF Up Note', 24, false);
+				animation.addByPrefix('singDOWN', 'GF Down Note', 24, false);
+				animation.addByIndices('danceLeft', 'GF Dancing Beat', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
+				animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+				animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", [0, 1, 2, 3], "", 24);
+				animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
+				animation.addByPrefix('scared', 'GF FEAR', 24);
+
+				addOffset('cheer');
+				addOffset('danceLeft', 0, -9);
+				addOffset('danceRight', 0, -9);
+
+				addOffset("singUP", 0, 4);
+				addOffset("singRIGHT", 0, -20);
+				addOffset("singLEFT", 0, -19);
+				addOffset("singDOWN", 0, -20);
+				addOffset('hairBlow', 45, -8);
+				addOffset('hairFall', 0, -9);
+
+				addOffset('scared', -2, -17);
+
+				playAnim('danceRight');
+				
+			case 'gf-tabi-crazy':
+				// GIRLFRIEND CODE
+				tex = Paths.getSparrowAtlas('tabi/mad/PostExpGF_Assets');
+				frames = tex;
+				animation.addByIndices('danceLeft', 'GF LayedDownHurt ', [0, 1, 2, 3, 4, 5, 6, 7], "", 24, false);
+				animation.addByIndices('danceRight', 'GF LayedDownHurt ', [8, 9, 10, 11, 12, 13, 14, 15], "", 24, false);
+		
+				addOffset('danceLeft', -300, -250);
+				addOffset('danceRight', -300, -250);
 
 				playAnim('danceRight');
 
@@ -171,8 +215,8 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Mom Pose Left', 24, false);
 
 				addOffset('idle');
-				addOffset("singUP", 14, 71);
 				addOffset("singRIGHT", 10, -60);
+				addOffset("singUP", 14, 71);
 				addOffset("singLEFT", 250, -23);
 				addOffset("singDOWN", 20, -160);
 
@@ -304,6 +348,45 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 				flipX = true;
+			
+			case 'bf-tabi':
+				var tex = Paths.getSparrowAtlas('tabi/BOYFRIEND_TABI');
+				frames = tex;
+				animation.addByPrefix('idle', 'BF idle dance', 24, false);
+				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
+				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
+				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
+				animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
+				animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
+				animation.addByPrefix('hey', 'BF HEY', 24, false);
+
+				animation.addByPrefix('firstDeath', "BF dies", 24, false);
+				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
+				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
+
+				animation.addByPrefix('scared', 'BF idle shaking', 24);
+
+				addOffset('idle', -5);
+				addOffset("singUP", -29, 27);
+				addOffset("singRIGHT", -38, -7);
+				addOffset("singLEFT", 12, -6);
+				addOffset("singDOWN", -10, -50);
+				addOffset("singUPmiss", -29, 27);
+				addOffset("singRIGHTmiss", -30, 21);
+				addOffset("singLEFTmiss", 12, 24);
+				addOffset("singDOWNmiss", -11, -19);
+				addOffset("hey", 7, 4);
+				addOffset('firstDeath', 37, 11);
+				addOffset('deathLoop', 37, 5);
+				addOffset('deathConfirm', 37, 69);
+				addOffset('scared', -4);
+
+				playAnim('idle');
+
+				flipX = true;
 
 			case 'bf-christmas':
 				var tex = Paths.getSparrowAtlas('christmas/bfChristmas');
@@ -389,6 +472,23 @@ class Character extends FlxSprite
 				height -= 100;
 
 				antialiasing = false;
+
+				flipX = true;
+			case 'bf-knife':
+				frames = Paths.getSparrowAtlas('tabi/mad/BF_Knife_death');
+				animation.addByPrefix('idle', "BF dies", 24, false);
+				animation.addByPrefix('singUP', "BF dies", 24, false);
+				animation.addByPrefix('firstDeath', "BF dies", 24, false);
+				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
+				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
+				
+				addOffset("singUP", -29, 27);
+				addOffset('firstDeath', 37, 11);
+				addOffset('deathLoop', 37, 5);
+				addOffset('deathConfirm', 37, 11);
+				addOffset('idle', 37, 11);
+
+				playAnim('idle');
 
 				flipX = true;
 			case 'bf-pixel-dead':
@@ -495,6 +595,76 @@ class Character extends FlxSprite
 				addOffset("singDOWN-alt", -30, -27);
 
 				playAnim('idle');
+			case 'tabi':
+				frames = Paths.getSparrowAtlas('tabi/TABI');
+				animation.addByPrefix('idle', 'Dad idle dance', 24, false);
+				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24, false);
+				animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24, false);
+				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24, false);
+				animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24, false);
+
+				addOffset('idle');
+
+				addOffset("singUP", 44, 50);
+				addOffset("singRIGHT", -15, 11);
+				addOffset("singLEFT", 104, -28);
+				addOffset("singDOWN", -5, -108);
+
+				playAnim('idle');
+			case 'bf-tabi-crazy':
+				var tex = Paths.getSparrowAtlas('tabi/mad/BF_post_exp');
+				frames = tex;
+				animation.addByPrefix('idle', 'BF idle dance', 24, false);
+				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
+				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
+				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
+				animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
+				animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
+				animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
+				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
+				animation.addByPrefix('hey', 'BF HEY', 24, false);
+
+				animation.addByPrefix('firstDeath', "BF dies", 24, false);
+				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
+				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
+
+				animation.addByPrefix('scared', 'BF idle shaking', 24);
+
+				addOffset('idle', -5);
+				addOffset("singUP", -29, 27);
+				addOffset("singRIGHT", -38, -7);
+				addOffset("singLEFT", 12, -6);
+				addOffset("singDOWN", -10, -50);
+				addOffset("singUPmiss", -29, 27);
+				addOffset("singRIGHTmiss", -30, 21);
+				addOffset("singLEFTmiss", 12, 24);
+				addOffset("singDOWNmiss", -11, -19);
+				addOffset("hey", 7, 4);
+				addOffset('firstDeath', 37, 11);
+				addOffset('deathLoop', 37, 5);
+				addOffset('deathConfirm', 37, 69);
+				addOffset('scared', -4);
+
+				playAnim('idle');
+
+				flipX = true;
+			case 'tabi-crazy':
+				frames = Paths.getSparrowAtlas('tabi/mad/MadTabi');
+				animation.addByPrefix('idle', 'MadTabiIdle', 24, false);
+				animation.addByPrefix('singUP', 'MadTabiUp', 24, false);
+				animation.addByPrefix('singDOWN', 'MadTabiDown', 24, false);
+				animation.addByPrefix('singLEFT', 'MadTabiLeft', 24, false);
+				animation.addByPrefix('singRIGHT', 'MadTabiRight', 24, false);
+
+				addOffset('idle');
+
+				addOffset("singUP", 59, 156);
+				addOffset("singRIGHT", -15, -19);
+				addOffset("singLEFT", 184, -5);
+				addOffset("singDOWN", -5, -30);
+
+				playAnim('idle');
 		}
 
 		dance();
@@ -523,7 +693,7 @@ class Character extends FlxSprite
 	}
 
 	override function update(elapsed:Float)
-	{
+	{	
 		if (!curCharacter.startsWith('bf'))
 		{
 			if (animation.curAnim.name.startsWith('sing'))
@@ -544,7 +714,7 @@ class Character extends FlxSprite
 
 		switch (curCharacter)
 		{
-			case 'gf':
+			case 'gf' | 'gf-tabi':
 				if (animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
 					playAnim('danceRight');
 		}
@@ -563,39 +733,7 @@ class Character extends FlxSprite
 		{
 			switch (curCharacter)
 			{
-				case 'gf':
-					if (!animation.curAnim.name.startsWith('hair'))
-					{
-						danced = !danced;
-
-						if (danced)
-							playAnim('danceRight');
-						else
-							playAnim('danceLeft');
-					}
-
-				case 'gf-christmas':
-					if (!animation.curAnim.name.startsWith('hair'))
-					{
-						danced = !danced;
-
-						if (danced)
-							playAnim('danceRight');
-						else
-							playAnim('danceLeft');
-					}
-
-				case 'gf-car':
-					if (!animation.curAnim.name.startsWith('hair'))
-					{
-						danced = !danced;
-
-						if (danced)
-							playAnim('danceRight');
-						else
-							playAnim('danceLeft');
-					}
-				case 'gf-pixel':
+				case 'gf' | 'gf-car' | 'gf-christmas' | 'gf-pixel' | 'gf-tabi' | 'gf-tabi-crazy':
 					if (!animation.curAnim.name.startsWith('hair'))
 					{
 						danced = !danced;
@@ -619,6 +757,12 @@ class Character extends FlxSprite
 		}
 	}
 
+	public function setZoom(?toChange:Float = 1):Void
+	{
+		daZoom = toChange;
+		scale.set(toChange, toChange);
+	}
+
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
 		animation.play(AnimName, Force, Reversed, Frame);
@@ -626,7 +770,7 @@ class Character extends FlxSprite
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
 		{
-			offset.set(daOffset[0], daOffset[1]);
+			offset.set(daOffset[0] * daZoom, daOffset[1] * daZoom);
 		}
 		else
 			offset.set(0, 0);
@@ -647,6 +791,107 @@ class Character extends FlxSprite
 				danced = !danced;
 			}
 		}
+	}
+	
+	public function addOff(ind:Int):Void
+	{
+		var offsetShit:String = "idle";
+		switch(ind)
+		{
+			case 0:
+				offsetShit = "singLEFT";
+			case 1:
+				offsetShit = "singDOWN";
+			case 2:
+				offsetShit = "singUP";
+			case 3:
+				offsetShit = "singRIGHT";
+		}
+		if (animOffsets.exists(offsetShit))
+		{
+			animOffsets.set(offsetShit, [animOffsets.get(offsetShit)[0], animOffsets.get(offsetShit)[1] + 1]);
+		}
+	}
+	
+	public function subOff(ind:Int):Void
+	{
+		var offsetShit:String = "idle";
+		switch(ind)
+		{
+			case 0:
+				offsetShit = "singLEFT";
+			case 1:
+				offsetShit = "singDOWN";
+			case 2:
+				offsetShit = "singUP";
+			case 3:
+				offsetShit = "singRIGHT";
+		}
+		if (animOffsets.exists(offsetShit))
+		{
+			animOffsets.set(offsetShit, [animOffsets.get(offsetShit)[0], animOffsets.get(offsetShit)[1] - 1]);
+		}
+	}
+	
+	public function addOff2(ind:Int):Void
+	{
+		var offsetShit:String = "idle";
+		switch(ind)
+		{
+			case 0:
+				offsetShit = "singLEFT";
+			case 1:
+				offsetShit = "singDOWN";
+			case 2:
+				offsetShit = "singUP";
+			case 3:
+				offsetShit = "singRIGHT";
+		}
+		if (animOffsets.exists(offsetShit))
+		{
+			animOffsets.set(offsetShit, [animOffsets.get(offsetShit)[0] + 1, animOffsets.get(offsetShit)[1]]);
+		}
+	}
+	
+	public function subOff2(ind:Int):Void
+	{
+		var offsetShit:String = "idle";
+		switch(ind)
+		{
+			case 0:
+				offsetShit = "singLEFT";
+			case 1:
+				offsetShit = "singDOWN";
+			case 2:
+				offsetShit = "singUP";
+			case 3:
+				offsetShit = "singRIGHT";
+		}
+		if (animOffsets.exists(offsetShit))
+		{
+			animOffsets.set(offsetShit, [animOffsets.get(offsetShit)[0] - 1, animOffsets.get(offsetShit)[1]]);
+		}
+	}
+	
+	public function printOff():Array<Array<Dynamic>>
+	{
+		trace(haxe.Json.stringify(animOffsets));
+		return formatShit(animOffsets, ["singLEFT", "singDOWN", "singUP", "singRIGHT"]);
+	}
+	
+	public function formatShit(otherShit:Map<String, Array<Dynamic>>, daCrap:Array<String>):Array<Array<Dynamic>>
+	{
+		var ourOffsets:Array<Array<Dynamic>> = [];
+		for (i in 0...daCrap.length)
+		{
+			if (otherShit.exists(daCrap[i]))
+			{
+				ourOffsets.push(otherShit.get(daCrap[i]));
+			} else {
+				ourOffsets.push([0.0, 0.0]);
+			}
+		}
+		return ourOffsets;
 	}
 
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)

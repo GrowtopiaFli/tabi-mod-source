@@ -494,6 +494,18 @@ class ChartingState extends MusicBeatState
 
 		FlxG.watch.addQuick('daBeat', curBeat);
 		FlxG.watch.addQuick('daStep', curStep);
+		
+		curRenderedNotes.forEach(function(note:Note)
+		{
+			if (note.y > strumLine.y)
+			{
+				note.alpha = 0.5;
+				note.color = 0xAAAAAA;
+			} else {
+				note.alpha = 1;
+				note.color = 0xFFFFFF;
+			}
+		});	
 
 		if (FlxG.mouse.justPressed)
 		{
@@ -515,8 +527,17 @@ class ChartingState extends MusicBeatState
 					}
 				});
 			}
-			else
+			else if (FlxG.keys.pressed.ALT)
 			{
+				if (FlxG.mouse.x > gridBG.x
+					&& FlxG.mouse.x < gridBG.x + gridBG.width
+					&& FlxG.mouse.y > gridBG.y
+					&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps))
+				{
+					FlxG.log.add('added alt note');
+					addAltNote();
+				}
+			} else {
 				if (FlxG.mouse.x > gridBG.x
 					&& FlxG.mouse.x < gridBG.x + gridBG.width
 					&& FlxG.mouse.y > gridBG.y
@@ -858,7 +879,7 @@ class ChartingState extends MusicBeatState
 			var daStrumTime = i[0];
 			var daSus = i[2];
 
-			var note:Note = new Note(daStrumTime, daNoteInfo % 4);
+			var note:Note = new Note(false, daStrumTime, daNoteInfo % 4);
 			note.sustainLength = daSus;
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
@@ -938,6 +959,31 @@ class ChartingState extends MusicBeatState
 		}
 
 		updateGrid();
+	}
+
+	private function addAltNote():Void
+	{
+		var noteStrum = getStrumTime(dummyArrow.y) + sectionStartTime();
+		var noteData = Math.floor(FlxG.mouse.x / GRID_SIZE);
+		var noteSus = 0;
+
+		_song.notes[curSection].sectionNotes.push([noteStrum, noteData, noteSus, 1]);
+
+		curSelectedNote = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
+		trace(curSelectedNote);
+
+		if (FlxG.keys.pressed.CONTROL)
+		{
+			_song.notes[curSection].sectionNotes.push([noteStrum, (noteData + 4) % 8, noteSus]);
+		}
+
+		trace(noteStrum);
+		trace(curSection);
+
+		updateGrid();
+		updateNoteUI();
+
+		autosaveSong();
 	}
 
 	private function addNote():Void

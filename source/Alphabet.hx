@@ -20,6 +20,8 @@ class Alphabet extends FlxSpriteGroup
 	// for menu shit
 	public var targetY:Float = 0;
 	public var isMenuItem:Bool = false;
+	public var noAnim:Bool = false;
+	public var noAnimAh:Bool = false;
 
 	public var text:String = "";
 
@@ -62,7 +64,7 @@ class Alphabet extends FlxSpriteGroup
 	}
 
 	public function addText()
-	{
+    {
 		doSplitWords();
 
 		var xPos:Float = 0;
@@ -76,8 +78,24 @@ class Alphabet extends FlxSpriteGroup
 			{
 				lastWasSpace = true;
 			}
+			
+			#if (haxe >= "4.0.0")
+			var isNumber:Bool = AlphaCharacter.numbers.contains(character);
+			var isSymbol:Bool = AlphaCharacter.symbols.contains(character);
+			if (character == "-")
+			{
+			isSymbol = false;
+			}
+			#else
+			var isNumber:Bool = AlphaCharacter.numbers.indexOf(character) != -1;
+			var isSymbol:Bool = AlphaCharacter.symbols.indexOf(character) != -1;
+			if (character == "-")
+			{
+			isSymbol = false;
+			}
+			#end
 
-			if (AlphaCharacter.alphabet.indexOf(character.toLowerCase()) != -1)
+			if (AlphaCharacter.alphabet.indexOf(character.toLowerCase()) != -1 || isNumber || isSymbol)
 				// if (AlphaCharacter.alphabet.contains(character.toLowerCase()))
 			{
 				if (lastSprite != null)
@@ -98,7 +116,18 @@ class Alphabet extends FlxSpriteGroup
 					letter.createBold(character);
 				else
 				{
-					letter.createLetter(character);
+					if (isNumber)
+					{
+						letter.createNumber(character);
+					}
+					else if (isSymbol)
+					{
+						letter.createSymbol(character);
+					}
+					else
+					{
+						letter.createLetter(character);
+					}
 				}
 
 				add(letter);
@@ -116,7 +145,7 @@ class Alphabet extends FlxSpriteGroup
 	}
 
 	public var personTalking:String = 'gf';
-
+	
 	public function startTypedText():Void
 	{
 		_finalText = text;
@@ -201,11 +230,11 @@ class Alphabet extends FlxSpriteGroup
 					letter.x += 90;
 				}
 
-				if (FlxG.random.bool(40))
+				/*if (FlxG.random.bool(40))
 				{
 					var daSound:String = "GF_";
 					FlxG.sound.play(Paths.soundRandom(daSound, 1, 4));
-				}
+				}*/
 
 				add(letter);
 
@@ -223,9 +252,21 @@ class Alphabet extends FlxSpriteGroup
 		if (isMenuItem)
 		{
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
-
+			if (!noAnimAh)
+			{
 			y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.16);
 			x = FlxMath.lerp(x, (targetY * 20) + 90, 0.16);
+			}
+			if (noAnim)
+			{
+			y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.5);
+			x = (targetY * 20) + 90;
+			}
+			if (noAnimAh)
+			{
+			y = (scaledY * 120) + (FlxG.height * 0.48);
+			x = (targetY * 20) + 90;
+			}
 		}
 
 		super.update(elapsed);
