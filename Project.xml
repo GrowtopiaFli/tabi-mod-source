@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin' VS Tabi" file="Tabi" packageName="com.homskiy.tabi" package="com.homskiy.tabi" main="Main" version="0.2.7.1" company="Homskiy" />
+	<app title="Friday Night Funkin'" file="Funkin" packageName="com.ninjamuffin99.funkin" package="com.ninjamuffin99.funkin" main="Main" version="0.2.7.1" company="ninjamuffin99" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -39,9 +39,6 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
 	<classpath name="source" />
-	
-	<define name="SPECIAL" if="web" />
-	<define name="SPECIAL" if="android" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
@@ -60,7 +57,6 @@
 		<library name="week4"    preload="true" />
 		<library name="week5"    preload="true" />
 		<library name="week6"    preload="true" />
-		<library name="curse"    preload="true" />
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
@@ -73,39 +69,26 @@
 		<library name="week4"    preload="false" />
 		<library name="week5"    preload="false" />
 		<library name="week6"    preload="false" />
-		<library name="curse"    preload="false" />
 	</section>
 	
-	<section if="SPECIAL">
-		<assets path="assets/special/songs" rename="assets/songs"   library="songs"    exclude="*.ogg" if="web"/>
-		<assets path="assets/special/songs" rename="assets/songs"   library="songs"    exclude="*.mp3" unless="web"/>
-		<assets path="assets/special/shared" rename="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
-		<assets path="assets/special/shared" rename="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
-	</section>
-	
-	<section unless="SPECIAL">
-		<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
-		<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
-		<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
-		<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
-		<assets path="assets/tutorial" library="tutorial" exclude="*.ogg" if="web"/>
-		<assets path="assets/tutorial" library="tutorial" exclude="*.mp3" unless="web"/>
-		<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
-		<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
-		<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
-		<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
-		<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
-		<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
-		<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
-		<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
-		<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
-		<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
-		<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
-		<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
-	</section>
-
-	<assets path="assets/curse"    library="curse"    exclude="*.ogg" if="web"/>
-	<assets path="assets/curse"    library="curse"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
+	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
+	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
+	<assets path="assets/tutorial" library="tutorial" exclude="*.ogg" if="web"/>
+	<assets path="assets/tutorial" library="tutorial" exclude="*.mp3" unless="web"/>
+	<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
 	
 	<assets path='example_mods' rename='mods' embed='false'/>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
@@ -131,10 +114,8 @@
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
 	<!-- <haxelib name="newgrounds"/> -->
-	<haxelib name="discord_rpc" if='desktop'/>
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="polymod"/>
-	<haxelib name="yaml"/> <!-- haxelib install yaml -->
 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
 
 	<!-- <haxelib name="markdown" /> -->
@@ -165,8 +146,6 @@
 
 	<!--Disable the Flixel sound management code-->
 	<!--<haxedef name="FLX_NO_SOUND_SYSTEM" />-->
-	
-	<haxedef name="animTestNO" if="debug" />
 
 	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
@@ -181,10 +160,10 @@
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 	
-	<icon path="art/tabi/icon16.png" size='16'/>
-	<icon path="art/tabi/icon32.png" size='32'/>
-	<icon path="art/tabi/icon64.png" size='64'/>
-	<icon path="art/tabi/iconOG.png" />
+	<icon path="art/icon16.png" size='16'/>
+	<icon path="art/icon32.png" size='32'/>
+	<icon path="art/icon64.png" size='64'/>
+	<icon path="art/iconOG.png" />
 
 
 	<!-- <haxedef name="SKIP_TO_PLAYSTATE" if="debug" /> -->
