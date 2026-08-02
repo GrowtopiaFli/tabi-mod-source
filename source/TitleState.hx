@@ -50,15 +50,6 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		isReady = false;
-		
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		#end
-		
-		#if (android || web)
-		Highscore.weekData = [Highscore.weekData[Highscore.weekData.length - 1]];
-		Highscore.storyWeekNames = [Highscore.storyWeekNames[Highscore.storyWeekNames.length - 1]];
-		#end
 
 		#if polymod
 		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
@@ -216,9 +207,7 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
-		#if !web
 		FlxG.mouse.visible = false;
-		#end
 
 		if (initialized)
 			skipIntro();
@@ -301,11 +290,11 @@ class TitleState extends MusicBeatState
 			transitioning = true;
 			// FlxG.sound.music.stop();
 
-			FlxTween.tween(FlxG.camera, { zoom: 1.25, angle: 45 }, 1, {ease: FlxEase.quadIn, onComplete: function(tmr:FlxTween)
+			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
 				// Check if version is outdated
 
-				//var version:String = "v" + Application.current.meta.get('version');
+				var version:String = "v" + Application.current.meta.get('version');
 
 				//if (version.trim() != NGio.GAME_VER_NUMS.trim() && !OutdatedSubState.leftState)
 				/*if (false)
@@ -321,10 +310,9 @@ class TitleState extends MusicBeatState
 				else
 				{*/
 					isReady = false;
-					FlxTween.tween(FlxG.camera, { zoom: 1 }, 0.5, {ease: FlxEase.quadIn });
 					FlxG.switchState(new MainMenuState());
 				//}
-			} });
+			});
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
 

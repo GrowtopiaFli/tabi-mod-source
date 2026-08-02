@@ -15,7 +15,7 @@ import openfl.Lib;
 
 class Highscore
 {
-	public static var weekDataOrig:Array<String> = [
+	public static var weekData:Array<String> = [
 	'tutorial',
 	'week1',
 	'week2',
@@ -25,8 +25,6 @@ class Highscore
 	'week6',
 	'curse'
 	];
-	
-	public static var weekData:Array<String> = weekDataOrig;
 	
 	public static var storyWeekNames:Array<String> = [
 	'Tutorial',
@@ -272,14 +270,6 @@ class Highscore
 	return miscData.get('downscroll');
 	}
 	
-	public static function getDS():Bool
-	{
-	if (!miscData.exists('disableshaders'))
-		setKey('disableshaders', false);
-
-	return miscData.get('disableshaders');
-	}
-	
 	public static function setKey(whatkey:String, what:Bool):Void
 	{
 	miscData.set(whatkey, what);
@@ -290,11 +280,6 @@ class Highscore
 	public static function toggleDownscroll():Void
 	{
 	setKey('downscroll', !miscData.get('downscroll'));
-	}
-	
-	public static function toggleDS():Void
-	{
-	setKey('disableshaders', !miscData.get('disableshaders'));
 	}
 	
 	public static function getInput():Bool

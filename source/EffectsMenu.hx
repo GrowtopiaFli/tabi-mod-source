@@ -16,11 +16,6 @@ import flixel.addons.transition.FlxTransitionableState;
 import Discord.DiscordClient;
 #end
 
-import flixel.FlxCamera;
-#if (web || android)
-import ui.FlxVirtualPad;
-#end
-
 using StringTools;
 
 class EffectsMenu extends MusicBeatState
@@ -32,32 +27,9 @@ class EffectsMenu extends MusicBeatState
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
-	
-	var mainCam:FlxCamera;
-	var higherCam:FlxCamera;
-	
-	#if (web || android)
-	var _pad:FlxVirtualPad;
-	#end
 
 	override function create()
 	{
-		mainCam = new FlxCamera();
-		higherCam = new FlxCamera();
-		higherCam.bgColor.alpha = 0;
-	
-		FlxG.cameras.reset(mainCam);
-		FlxG.cameras.add(higherCam);
-		
-		FlxCamera.defaultCameras = [mainCam];
-		
-		#if (web || android)
-		_pad = new FlxVirtualPad(UP_DOWN, A_B);
-		_pad.alpha = 0.65;
-		add(_pad);
-		_pad.cameras = [higherCam];
-		#end
-	
 		if (!FlxG.sound.music.playing)
 		{
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -131,12 +103,10 @@ class EffectsMenu extends MusicBeatState
 		var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
 		songText.isMenuItem = true;
 		songText.targetY = i;
-		#if !web
 		if (fuckingBool[i])
 		{
 		songText.color = 0xffff33;
 		}
-		#end
 		grpSongs.add(songText);
 	}
 	changeSelection();
@@ -151,30 +121,9 @@ class EffectsMenu extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		var upP:Bool = false;
-		var downP:Bool = false;
-		var accepted:Bool = false;
-		var LEFT_P:Bool = false;
-		var RIGHT_P:Bool = false;
-		var backed:Bool = false;
-		
-		#if (web || android)
-		upP = controls.UP_P || _pad.buttonUp.justPressed;
-		downP = controls.DOWN_P || _pad.buttonDown.justPressed;
-		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
-		backed = controls.BACK || _pad.buttonB.justPressed;
-		#if android
-		if (FlxG.android.justReleased.BACK)
-		{
-		backed = true;
-		}
-		#end
-		#else
-		upP = controls.UP_P;
-		downP = controls.DOWN_P;
-		accepted = controls.ACCEPT;
-		backed = controls.BACK;
-		#end
+		var upP = controls.UP_P;
+		var downP = controls.DOWN_P;
+		var accepted = controls.ACCEPT;
 
 		if (upP)
 		{
@@ -190,7 +139,7 @@ class EffectsMenu extends MusicBeatState
 			changeSelection(FlxG.mouse.wheel * -1);
 		}
 
-		if (backed)
+		if (controls.BACK)
 		{
 			FlxG.switchState(new SettingsMenu());
 		}

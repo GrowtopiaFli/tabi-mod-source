@@ -239,6 +239,7 @@ class DialogueBox extends FlxSpriteGroup
 		handSelect = new FlxSprite(FlxG.width * 0.9, FlxG.height * 0.9).loadGraphic(Paths.image('weeb/pixelUI/hand_textbox'));
 		add(handSelect);
 
+
 		if (!talkingRight)
 		{
 			// box.flipX = true;
@@ -423,18 +424,8 @@ class DialogueBox extends FlxSpriteGroup
 
 		whitelisted = ['chromeoffset', 'soundoverwritestop', 'musicstop', 'music', 'musicloop', 'soundoverwrite', 'sound', 'class', 'class-use', 'bg', 'bghide', 'makeGraphic', 'enableTypeSound', 'disableTypeSound', 'switchSound', 'fadeIn', 'fadeOut'];
 
-		var pressedEnter:Bool = controls.ACCEPT;
-
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.justPressed)
-			{
-				pressedEnter = true;
-			}
-		}
-
 		//if ((FlxG.keys.justPressed.ANY) || (dialogueList.length > 0 && whitelisted.contains(curCharacter)) && dialogueStarted == true && !paused && !isFade)
-		if ((pressedEnter) || (dialogueList.length > 0 && whitelisted.contains(curCharacter)) && dialogueStarted == true && !paused && !isFade)
+		if ((controls.ACCEPT) || (dialogueList.length > 0 && whitelisted.contains(curCharacter)) && dialogueStarted == true && !paused && !isFade)
 		{
 			var queuePause:Bool = false;
 			queueFade = false;
@@ -445,7 +436,7 @@ class DialogueBox extends FlxSpriteGroup
 				case 'chromeoffset':
 					var chromeOffset:Float = Std.parseFloat(dialogueList[0]);
 					chromeOffset /= 1000;
-					ShadersHandler.setChrome(chromeOffset);
+					ChromaHandler.setChrome(chromeOffset);
 				case 'musicloop':
 					if (Paths.exists(Paths.music(dialogueList[0])))
 					{

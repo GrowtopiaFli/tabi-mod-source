@@ -14,7 +14,7 @@ class MusicBeatState extends FlxUIState
 	public var chromaticAberration(get, never):ShaderFilter;
 	
 	inline function get_chromaticAberration():ShaderFilter
-		return ShadersHandler.chromaticAberration;
+		return ChromaHandler.chromaticAberration;
 		
 	/*public var shockwave(get, never):ShaderFilter;
 	
@@ -22,7 +22,7 @@ class MusicBeatState extends FlxUIState
 		return ShockwaveHandler.shockwave;*/
 
 	public function setChrome(daChrome:Float):Void
-		ShadersHandler.setChrome(daChrome);
+		ChromaHandler.setChrome(daChrome);
 	
 	/*public function getValue(valName:String):Array<Float>
 	{
@@ -37,13 +37,13 @@ class MusicBeatState extends FlxUIState
 	public var brightShader(get, never):ShaderFilter;
 	
 	inline function get_brightShader():ShaderFilter
-		return ShadersHandler.brightShader;
+		return BrightHandler.brightShader;
 		
 	public function setBrightness(brightness:Float):Void
-		ShadersHandler.setBrightness(brightness);
+		BrightHandler.setBrightness(brightness);
 		
 	public function setContrast(contrast:Float):Void
-		ShadersHandler.setContrast(contrast);
+		BrightHandler.setContrast(contrast);
 
 	private var lastBeat:Float = 0;
 	private var lastStep:Float = 0;

@@ -4,8 +4,6 @@ import Conductor.BPMChangeEvent;
 import flixel.FlxG;
 import flixel.FlxSubState;
 
-import ui.FlxVirtualPad;
-
 class MusicBeatSubstate extends FlxSubState
 {
 	public function new()
