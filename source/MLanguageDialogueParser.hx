@@ -80,10 +80,10 @@ class MLanguageDialogueParser
 		var toRet:String = "";
 		var shittyFormat:Bool = false;
 		var dataObj2:Dynamic = {};
-		trace("----");
-		trace(fname);
-		trace(id);
-		trace("----");
+		//trace("----");
+		//trace(fname);
+		//trace(id);
+		//trace("----");
 		var bool1:Bool = dataObj.exists("dialogues") && dataObj.get("dialogues").exists(fname);
 		var bool2:Bool = false;
 		if (bool1)
@@ -190,11 +190,11 @@ class MLanguageDialogueParser
 			
 			}
 		}
-		toRet = { font: "15111.ttf", size: 32 };
+		/*toRet = { font: "15111.ttf", size: 32 };
 		if (Highscore.getRus())
 		{
 			toRet.size = 25;
-		}
+		}*/
 		return toRet;
 	}
 }

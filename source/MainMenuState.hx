@@ -134,7 +134,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.camera.follow(camFollow, null, 0.06);
 		
 		var daMultiplier:Float = 2;
-		var daString:String = "Tabi v" + CurrentVersion.get() + "\nFNF v" + Application.current.meta.get('version') + " Commit d3cd2e2";
+		var daString:String = "Tabi v" + CurrentVersion.get() + "\nFNF v" + Application.current.meta.get('version') + " Commit d3cd2e2\n";
 
 		#if (web || android)
 		daMultiplier++;
