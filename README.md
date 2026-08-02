@@ -5,6 +5,9 @@ CHROMATIC ABERRATION GO BRRRRRRRRR \
 But seriously code in here i hate my life ;-; \
 Well follow instructions at https://github.com/ninjamuffin99/Funkin
 
+# Description
+A cool FNF mod I used to work for when I was around 13 years old back in April - May 2021 where I implemented features such as window shaking and a chromatic aberration shader which was when I first touched GLSL at the time
+
 ## [COMPILING INSTRUCTIONS]
 Since this is a legacy version, there are a lot of problems if these rules are not followed:
 1. Install Haxe `4.2.4` (checkable via `haxe --version`)
