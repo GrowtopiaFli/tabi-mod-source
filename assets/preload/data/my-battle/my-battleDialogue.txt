@@ -1,6 +1,6 @@
 ---SECTION START---
 :class:Cutscene1,
-:makeGraphic:255,0,0,0
+:bg:cutscenes/0
 :disableTypeSound:
 :switchSound:gfText
 :enableTypeSound:
@@ -26,6 +26,7 @@
 :switchSound:gfText
 :gf-letsgo:Great, Then I'm Going To Call For A Taxi
 :disableTypeSound:
+:bg:cutscenes/0-b
 :noone:So They Went To The Restaurant To Meet Girlfriend's Uncle
 :fadeIn:1
 :bg:cutscenes/1
@@ -49,7 +50,7 @@
 :bf-right:Skbeep?
 :disableTypeSound:
 :sound:GF_1
-:gf-hmm:Shit...
+:gf-worried:Shit...
 :class-use:Cutscene1
 :bg:cutscenes/2
 :switchSound:tabiText
@@ -57,7 +58,7 @@
 :tabi:So We Finally Meet After 1 Year Of Hiding
 :disableTypeSound:
 :sound:GF_4
-:gf-hmm:*Shaking From Fear*
+:gf-scared:*Shaking From Fear*
 :enableTypeSound:
 :tabi-mad:Wait? Who Are YOU?
 :switchSound:bfText
@@ -74,7 +75,7 @@
 
 ---SECTION START---
 :class:Cutscene1,
-:makeGraphic:255,0,0,0
+:bg:cutscenes/0
 :disableTypeSound:
 :switchSound:bfText
 :soundoverwrite:voices/home/1
@@ -108,6 +109,7 @@
 :soundoverwrite:voices/home/7
 :gf-letsgo:Great, Then I'm Going To Call For A Taxi
 :disableTypeSound:
+:bg:cutscenes/0-b
 :noone:So They Went To The Restaurant To Meet Girlfriend's Uncle
 :fadeIn:1
 :bg:cutscenes/1
@@ -135,7 +137,7 @@
 :bf-right:Skbeep?
 :disableTypeSound:
 :soundoverwrite:voices/bath/5
-:gf-hmm:Shit...
+:gf-worried:Shit...
 :soundoverwritestop:
 :class-use:Cutscene1
 :bg:cutscenes/2
@@ -143,7 +145,7 @@
 :tabi:So We Finally Meet After 1 Year Of Hiding
 :soundoverwritestop:
 :sound:GF_4
-:gf-hmm:*Shaking From Fear*
+:gf-scared:*Shaking From Fear*
 :soundoverwrite:voices/tabi1/2
 :tabi-mad:Wait? Who Are YOU?
 :soundoverwritestop:
@@ -166,7 +168,7 @@
 
 ---SECTION START---
 :class:Cutscene1,
-:makeGraphic:255,0,0,0
+:bg:cutscenes/0
 :disableTypeSound:
 :switchSound:gfText
 :enableTypeSound:
@@ -192,6 +194,7 @@
 :switchSound:gfText
 :gf-letsgo:Отлично, тогда я закажу вам
 :disableTypeSound:
+:bg:cutscenes/0-b
 :noone:И так, они отправились в ресторан на такси
 :fadeIn:1
 :bg:cutscenes/1
@@ -215,7 +218,7 @@
 :bf-right:Скбип?
 :disableTypeSound:
 :sound:GF_1
-:gf-hmm:черт…
+:gf-worried:черт…
 :class-use:Cutscene1
 :bg:cutscenes/2
 :switchSound:tabiText
@@ -223,7 +226,7 @@
 :tabi:Значит… после целого года пряток мы наконец с тобой встретились?
 :disableTypeSound:
 :sound:GF_4
-:gf-hmm:*выглядит напряжённой*
+:gf-scared:*выглядит напряжённой*
 :enableTypeSound:
 :tabi-mad:Хм?, а ТЫ кто ещё такой?
 :switchSound:bfText
@@ -240,7 +243,7 @@
 
 ---SECTION START---
 :class:Cutscene1,
-:makeGraphic:255,0,0,0
+:bg:cutscenes/0
 :disableTypeSound:
 :switchSound:bfText
 :soundoverwrite:voices/home/1
@@ -274,6 +277,7 @@
 :soundoverwrite:voices/home/7
 :gf-letsgo:Отлично, тогда я закажу вам
 :disableTypeSound:
+:bg:cutscenes/0-b
 :noone:И так, они отправились в ресторан на такси
 :fadeIn:1
 :bg:cutscenes/1
@@ -301,7 +305,7 @@
 :bf-right:Скбип?
 :disableTypeSound:
 :soundoverwrite:voices/bath/5
-:gf-hmm:черт…
+:gf-worried:черт…
 :soundoverwritestop:
 :class-use:Cutscene1
 :bg:cutscenes/2
@@ -309,7 +313,7 @@
 :tabi:Значит… после целого года пряток мы наконец с тобой встретились?
 :soundoverwritestop:
 :sound:GF_4
-:gf-hmm:*выглядит напряжённой*
+:gf-scared:*выглядит напряжённой*
 :soundoverwrite:voices/tabi1/2
 :tabi-mad:Хм?, а ТЫ кто ещё такой?
 :soundoverwritestop:

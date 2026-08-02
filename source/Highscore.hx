@@ -15,7 +15,7 @@ import openfl.Lib;
 
 class Highscore
 {
-	public static var weekData:Array<String> = [
+	public static var weekDataOrig:Array<String> = [
 	'tutorial',
 	'week1',
 	'week2',
@@ -25,6 +25,8 @@ class Highscore
 	'week6',
 	'curse'
 	];
+	
+	public static var weekData:Array<String> = weekDataOrig;
 	
 	public static var storyWeekNames:Array<String> = [
 	'Tutorial',

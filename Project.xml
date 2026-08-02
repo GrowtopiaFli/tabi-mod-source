@@ -39,6 +39,9 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
 	<classpath name="source" />
+	
+	<define name="SPECIAL" if="web" />
+	<define name="SPECIAL" if="android" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
@@ -73,24 +76,34 @@
 		<library name="curse"    preload="false" />
 	</section>
 	
-	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
-	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
-	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
-	<assets path="assets/tutorial" library="tutorial" exclude="*.ogg" if="web"/>
-	<assets path="assets/tutorial" library="tutorial" exclude="*.mp3" unless="web"/>
-	<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
+	<section if="SPECIAL">
+		<assets path="assets/special/songs" rename="assets/songs"   library="songs"    exclude="*.ogg" if="web"/>
+		<assets path="assets/special/songs" rename="assets/songs"   library="songs"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/special/shared" rename="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
+		<assets path="assets/special/shared" rename="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
+	</section>
+	
+	<section unless="SPECIAL">
+		<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
+		<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
+		<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
+		<assets path="assets/tutorial" library="tutorial" exclude="*.ogg" if="web"/>
+		<assets path="assets/tutorial" library="tutorial" exclude="*.mp3" unless="web"/>
+		<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
+	</section>
+
 	<assets path="assets/curse"    library="curse"    exclude="*.ogg" if="web"/>
 	<assets path="assets/curse"    library="curse"    exclude="*.mp3" unless="web"/>
 	

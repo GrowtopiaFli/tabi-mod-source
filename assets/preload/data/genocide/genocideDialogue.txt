@@ -11,7 +11,7 @@
 :tabi:Hehehe... So, You Survived The Explosion, Huh?
 :disableTypeSound:
 :sound:GF_1
-:gf-hmm:*TERRIFIED*
+:gf-scared:*TERRIFIED*
 :sound:bfText
 :bf-exp:*WORRIED BEEP BOPS*
 :enableTypeSound:
@@ -39,7 +39,7 @@
 :tabi:Hehehe... So, You Survived The Explosion, Huh?
 :soundoverwritestop:
 :sound:GF_1
-:gf-hmm:*TERRIFIED*
+:gf-scared:*TERRIFIED*
 :sound:bfText
 :bf-exp:*WORRIED BEEP BOPS*
 :soundoverwrite:voices/tabi3/2
@@ -72,7 +72,7 @@
 :tabi:Хах… живые? … не так-ли?
 :disableTypeSound:
 :sound:GF_1
-:gf-hmm:*выглядит напуганной*
+:gf-scared:*выглядит напуганной*
 :sound:bfText
 :bf-exp:*напуганные бип бопы*
 :enableTypeSound:
@@ -99,7 +99,7 @@
 :tabi:Хах… живые? … не так-ли?
 :soundoverwritestop:
 :sound:GF_1
-:gf-hmm:*выглядит напуганной*
+:gf-scared:*выглядит напуганной*
 :sound:bfText
 :bf-exp:*напуганные бип бопы*
 :soundoverwrite:voices/tabi3/2
