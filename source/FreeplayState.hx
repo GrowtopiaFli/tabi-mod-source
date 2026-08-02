@@ -11,15 +11,6 @@ import flixel.util.FlxColor;
 import lime.utils.Assets;
 import flixel.util.FlxTimer;
 
-#if desktop
-import Discord.DiscordClient;
-#end
-
-import flixel.FlxCamera;
-#if (web || android)
-import ui.FlxVirtualPad;
-#end
-
 using StringTools;
 
 class FreeplayState extends MusicBeatState
@@ -41,38 +32,15 @@ class FreeplayState extends MusicBeatState
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
-	
-	var mainCam:FlxCamera;
-	var higherCam:FlxCamera;
-	
-	#if (web || android)
-	var _pad:FlxVirtualPad;
-	#end
 
 	override function create()
 	{
-		mainCam = new FlxCamera();
-		higherCam = new FlxCamera();
-		higherCam.bgColor.alpha = 0;
-	
-		FlxG.cameras.reset(mainCam);
-		FlxG.cameras.add(higherCam);
-		
-		FlxCamera.defaultCameras = [mainCam];
-		
-		#if (web || android)
-		_pad = new FlxVirtualPad(FULL, A_B);
-		_pad.alpha = 0.65;
-		add(_pad);
-		_pad.cameras = [higherCam];
-		#end
-	
-		/*var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
+		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)
 		{
 			songs.push(new SongMetadata(initSonglist[i], 1, 'gf'));
-		}*/
+		}
 
 		/* 
 			if (FlxG.sound.music != null)
@@ -81,22 +49,12 @@ class FreeplayState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 		 */
-		 
-		#if desktop
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In Freeplay Menu...", null);
-		#end
 
 		var isDebug:Bool = false;
 
 		#if debug
 		isDebug = true;
 		#end
-		
-		var curseUse:Int = 7;
-
-		#if (!android && !web)
-		songs.push(new SongMetadata('Tutorial', 1, 'gf'));
 
 		if (StoryMenuState.weekUnlocked[2] || isDebug)
 			addWeek(['Bopeebo', 'Fresh', 'Dadbattle'], 1, ['dad']);
@@ -115,12 +73,9 @@ class FreeplayState extends MusicBeatState
 
 		if (StoryMenuState.weekUnlocked[6] || isDebug)
 			addWeek(['Senpai', 'Roses', 'Thorns'], 6, ['senpai', 'senpai', 'spirit']);
-		#else
-		curseUse = 0;
-		#end
 			
 		if (StoryMenuState.weekUnlocked[7] || isDebug)
-			addWeek(['My-Battle', 'Last-Chance', 'Genocide'], curseUse, ['tabi', 'tabi', 'tabi-crazy']);
+			addWeek(['My-Battle', 'Last-Chance', 'Genocide'], 7, ['tabi', 'tabi', 'tabi-crazy']);
 
 		// LOAD MUSIC
 
@@ -235,34 +190,9 @@ class FreeplayState extends MusicBeatState
 
 		scoreText.text = "PERSONAL BEST:" + lerpScore;
 
-		var upP:Bool = false;
-		var downP:Bool = false;
-		var accepted:Bool = false;
-		var LEFT_P:Bool = false;
-		var RIGHT_P:Bool = false;
-		var backed:Bool = false;
-		
-		#if (web || android)
-		upP = controls.UP_P || _pad.buttonUp.justPressed;
-		downP = controls.DOWN_P || _pad.buttonDown.justPressed;
-		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
-		LEFT_P = controls.LEFT_P || _pad.buttonLeft.justPressed;
-		RIGHT_P = controls.RIGHT_P || _pad.buttonRight.justPressed;
-		backed = controls.BACK || _pad.buttonB.justPressed;
-		#if android
-		if (FlxG.android.justReleased.BACK)
-		{
-		backed = true;
-		}
-		#end
-		#else
-		upP = controls.UP_P;
-		downP = controls.DOWN_P;
-		accepted = controls.ACCEPT;
-		LEFT_P = controls.LEFT_P;
-		RIGHT_P = controls.RIGHT_P;
-		backed = controls.BACK;
-		#end
+		var upP = controls.UP_P;
+		var downP = controls.DOWN_P;
+		var accepted = controls.ACCEPT;
 
 		if (upP)
 		{
@@ -272,18 +202,13 @@ class FreeplayState extends MusicBeatState
 		{
 			changeSelection(1);
 		}
-		
-		if (Highscore.getInput() && FlxG.mouse.wheel != 0)
-		{
-			changeSelection(FlxG.mouse.wheel * -1);
-		}
 
-		if (LEFT_P)
+		if (controls.LEFT_P)
 			changeDiff(-1);
-		if (RIGHT_P)
+		if (controls.RIGHT_P)
 			changeDiff(1);
 
-		if (backed)
+		if (controls.BACK)
 		{
 			FlxG.switchState(new MainMenuState());
 		}

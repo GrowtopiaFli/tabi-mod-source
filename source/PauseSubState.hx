@@ -13,10 +13,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
-#if (web || android)
-import ui.FlxVirtualPad;
-#end
-
 class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
@@ -25,10 +21,6 @@ class PauseSubState extends MusicBeatSubstate
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
-	
-	#if (web || android)
-	var _pad:FlxVirtualPad;
-	#end
 
 	public function new(x:Float, y:Float)
 	{
@@ -81,14 +73,8 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		changeSelection();
-		
-		#if (web || android)
-		_pad = new FlxVirtualPad(UP_DOWN, A);
-		_pad.alpha = 0.75;
-		add(_pad);
-		#end
 
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 3]];
+		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 2]];
 	}
 
 	override function update(elapsed:Float)
@@ -98,25 +84,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
-		var upP:Bool = false;
-		var downP:Bool = false;
-		var accepted:Bool = false;
-		
-		#if (web || android)
-		upP = controls.UP_P || _pad.buttonUp.justPressed;
-		downP = controls.DOWN_P || _pad.buttonDown.justPressed;
-		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
-		#if android
-		if (FlxG.android.justReleased.BACK)
-		{
-		accepted = true;
-		}
-		#end
-		#else
-		upP = controls.UP_P;
-		downP = controls.DOWN_P;
-		accepted = controls.ACCEPT;
-		#end
+		var upP = controls.UP_P;
+		var downP = controls.DOWN_P;
+		var accepted = controls.ACCEPT;
 
 		if (upP)
 		{
@@ -125,10 +95,6 @@ class PauseSubState extends MusicBeatSubstate
 		if (downP)
 		{
 			changeSelection(1);
-		}
-		if (Highscore.getInput() && FlxG.mouse.wheel != 0)
-		{
-			changeSelection(FlxG.mouse.wheel * -1);
 		}
 
 		if (accepted)
