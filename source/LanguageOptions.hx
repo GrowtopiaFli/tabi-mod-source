@@ -22,7 +22,7 @@ import ui.FlxVirtualPad;
 
 using StringTools;
 
-class SettingsMenu extends MusicBeatState
+class LanguageOptions extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
 
@@ -38,19 +38,6 @@ class SettingsMenu extends MusicBeatState
 	#if (web || android)
 	var _pad:FlxVirtualPad;
 	#end
-	
-	var playShit:Bool = false;
-	
-	public function new(?someString:String)
-	{
-		super();
-		if (someString != null && someString != "")
-		{
-			playShit = true;
-		} else {
-			playShit = false;
-		}
-	}
 
 	override function create()
 	{
@@ -64,16 +51,11 @@ class SettingsMenu extends MusicBeatState
 		FlxCamera.defaultCameras = [mainCam];
 		
 		#if (web || android)
-		_pad = new FlxVirtualPad(UP_DOWN, A_B);
+		_pad = new FlxVirtualPad(LEFT_RIGHT, A_B);
 		_pad.alpha = 0.65;
 		add(_pad);
 		_pad.cameras = [higherCam];
 		#end
-	
-		/*if (!FlxG.sound.music.playing)
-		{
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
-		}*/
 		
 		#if desktop
 		// Updating Discord Rich Presence
@@ -87,14 +69,11 @@ class SettingsMenu extends MusicBeatState
 
 		fuckTheClearance();
 
-		//if (!FlxG.sound.music.playing)
-		//{
-		if (playShit)
+		if (!FlxG.sound.music.playing)
 		{
 		FlxG.sound.playMusic(Paths.music('options'), 0, true);
 		FlxG.sound.music.fadeIn(2, 0, 0.8);
 		}
-		//}
 		selector = new FlxText();
 
 		selector.size = 40;
@@ -113,78 +92,24 @@ class SettingsMenu extends MusicBeatState
 	songs.splice(0, songs.length);
 	add(grpSongs);
 	
-	var ourFuckingList:Array<String> = [];
-	
-	var downScrollShit:String = (Highscore.getDownscroll()) ? "On" : "Off";
-	var inputShit:String = (Highscore.getInput()) ? "On" : "Off";
-	/*var voiceShit:String = "Off";
-	var rusShit:String = "Off";
-	
-	if (Highscore.getVoice())
-	{
-		voiceShit = "On";
-		rusShit = "Disabled";
-	}
-	
-	if (Highscore.getRus())
-	{
-		rusShit = "On";
-		voiceShit = "Disabled";
-	}*/
+	var ourFuckingList:Array<String> = MLanguageDialogueParser.getList();
 
-	var voiceShit:String = (Highscore.getVoice()) ? "On" : "Off";
-
-	var photoShit:String = (Highscore.getPhoto()) ? "On" : "Off";
-	var dsShit:String = (Highscore.getDS()) ? "On" : "Off";
-	
-	ourFuckingList.push('Downscroll $downScrollShit');
-	ourFuckingList.push('New Input System $inputShit');
-	ourFuckingList.push('Custom Keybindings');
-	ourFuckingList.push('Visual Effects');
-	ourFuckingList.push('Voicelines $voiceShit');
-	ourFuckingList.push('Language Options');
-	ourFuckingList.push('Photosensitive Mode $photoShit');
-	ourFuckingList.push('Disable Shaders $dsShit');
-
-	#if (android || web)
-	ourFuckingList.push('Customize Controls');
-	#end
-	
 	for (shit in ourFuckingList)
 	{
 		songs.push(new SongMetadata(shit, 1, 'gf'));
 	}
-	
-	var fuckingBool:Array<Bool> = [
-	Highscore.getDownscroll(),
-	Highscore.getInput(),
-	false,
-	false,
-	Highscore.getVoice(),
-	false,
-	Highscore.getPhoto(),
-	Highscore.getDS(),
-	false
-	];
 
 	for (i in 0...songs.length)
 	{
-		var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
+		//var songText:Alphabet = new Alphabet(-1000, (70 * i) + 30, songs[i].songName, true, false);
+		var songText:Alphabet = new Alphabet(0, FlxG.height / 2, songs[i].songName, true, false);
 		songText.isMenuItem = true;
-		songText.noAnim = true;
+		songText.horizontal = true;
 		songText.targetY = i;
-		#if !web
-		if (fuckingBool[i])
-		{
-			songText.color = 0xffff33;
-		}
-		#end
-		/*if (songs[i].songName.endsWith('Disabled'))
-		{
-			songText.color = 0xff3333;
-		}*/
+		songText.visible = false;
 		grpSongs.add(songText);
 	}
+	curSelected = Highscore.getLang();
 	changeSelection();
 	}
 
@@ -205,8 +130,8 @@ class SettingsMenu extends MusicBeatState
 		var backed:Bool = false;
 		
 		#if (web || android)
-		upP = controls.UP_P || _pad.buttonUp.justPressed;
-		downP = controls.DOWN_P || _pad.buttonDown.justPressed;
+		upP = controls.LEFT_P || _pad.buttonLeft.justPressed;
+		downP = controls.RIGHT_P || _pad.buttonRight.justPressed;
 		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
 		backed = controls.BACK || _pad.buttonB.justPressed;
 		#if android
@@ -216,8 +141,8 @@ class SettingsMenu extends MusicBeatState
 		}
 		#end
 		#else
-		upP = controls.UP_P;
-		downP = controls.DOWN_P;
+		upP = controls.LEFT_P;
+		downP = controls.RIGHT_P;
 		accepted = controls.ACCEPT;
 		backed = controls.BACK;
 		#end
@@ -225,10 +150,12 @@ class SettingsMenu extends MusicBeatState
 		if (upP)
 		{
 			changeSelection(-1);
+			Highscore.setLang(curSelected);
 		}
 		if (downP)
 		{
 			changeSelection(1);
+			Highscore.setLang(curSelected);
 		}
 		
 		if (Highscore.getInput() && FlxG.mouse.wheel != 0)
@@ -238,40 +165,14 @@ class SettingsMenu extends MusicBeatState
 
 		if (backed)
 		{
-			FlxG.switchState(new MainMenuState("play shit"));
+			FlxG.switchState(new SettingsMenu());
 		}
 
 		if (accepted)
 		{
 			switch(curSelected)
 			{
-			case 0:
-				Highscore.toggleDownscroll();
-			case 1:
-				Highscore.toggleInput();
-			case 2:
-				FlxG.switchState(new KeysMenu());
-			case 3:
-				FlxG.switchState(new EffectsMenu());
-			case 4:
-				/*if (!(Highscore.getRus() && !Highscore.getVoice()))
-				{*/
-					Highscore.toggleVoice();
-				//}
-			case 5:
-				/*if (!(Highscore.getVoice() && !Highscore.getRus()))
-				{*/
-					//Highscore.toggleRus();
-				//}
-				FlxG.switchState(new LanguageOptions());
-			case 6:
-				Highscore.togglePhoto();
-			case 7:
-				Highscore.toggleDS();
-			case 8:
-				#if (android || web)
-				FlxG.switchState(new CustomControlsState());
-				#end
+
 			}
 			fuckTheClearance();
 		}
@@ -292,10 +193,50 @@ class SettingsMenu extends MusicBeatState
 
 		for (item in grpSongs.members)
 		{
+			item.visible = true;
 			item.targetY = bullShit - curSelected;
+			if (grpSongs.members.length > 1)
+			{
+				/*if (bullShit == songs.length - 1 && curSelected == 1)
+				{
+					item.targetY = -2;
+					var halfW:Float = FlxG.width / 2 - item.width / 2;
+					item.y = FlxG.height / 2 - Math.abs(item.targetY * 70);
+					item.x = item.targetY * halfW + halfW;
+				}
+				else if (bullShit == 0 && curSelected == songs.length - 2)
+				{
+					item.targetY = 2;
+					var halfW:Float = FlxG.width / 2 - item.width / 2;
+					item.y = FlxG.height / 2 - Math.abs(item.targetY * 70);
+					item.x = item.targetY * halfW + halfW;
+				}
+				if (bullShit == 0 && curSelected == songs.length - 1)
+				{
+					item.targetY = 1;
+				}
+				else if (bullShit == songs.length - 1 && curSelected == 0)
+				{
+					item.targetY = -1;
+				}*/
+				if (item.targetY < -1)
+				{
+					item.targetY = -2;
+					var halfW:Float = FlxG.width / 2 - item.width / 2;
+					item.y = FlxG.height / 2 - Math.abs(item.targetY * 70);
+					item.x = item.targetY * halfW + halfW;
+				}
+				else if (item.targetY > 1)
+				{
+					item.targetY = 2;
+					var halfW:Float = FlxG.width / 2 - item.width / 2;
+					item.y = FlxG.height / 2 - Math.abs(item.targetY * 70);
+					item.x = item.targetY * halfW + halfW;
+				}
+			}
 			bullShit++;
 
-			item.alpha = 0.6;
+			item.alpha = 0.5;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
 			if (item.targetY == 0)

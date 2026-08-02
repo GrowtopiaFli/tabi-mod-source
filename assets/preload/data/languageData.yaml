@@ -1,0 +1,226 @@
+# GWebDev's MultiLanguage YAML Format Shit LOL
+
+id: "GWebDev idk screw it it's for verifying shit for idiots who don't follow instructions"
+mod: "Tabi"
+
+# IDK Why I Put This Shit Here
+# ----------------------------
+
+# Yes Languages
+
+dialogues: {
+
+      my-battleDialogue: {
+          languages: {
+
+              english: {
+              
+                  d1: "Hey There Boyfriend!",
+                  d2: "Beep!",
+                  d3: "I Wanted To Tell You That Im Inviting You With Me To A Restaurant!",
+                  d4: "Beep?",
+                  d5: "Well, My Father's Friend Invited Me For Some Reason",
+                  d6: "Skboop Bep? Bep Dop Boop",
+                  d7: "It's My Favorite Restaurant!",
+                  d8: "I Wonder How He Knew...",
+                  d9: "Anyways! I Wanted To Take You Aswell, I Want Ya'll To Meet Each Other Already He's My Uncle!",
+                  d10: "Beep",
+                  d11: "Great, Then I'm Going To Call For A Taxi",
+                  noone: "So They Went To The Restaurant To Meet Girlfriend's Uncle",
+                  # LOL i placed noone here too
+                  d12: "Hey Boyfriend, I Need To Go To The Bathroom, Wait For Me Here",
+                  d13: "Beep! Skbeep!",
+                  d14: "Ahah! Okay, Okay! You Can Escort Me There My Love",
+                  d15: "*Shy Beeps*",
+                  d16: "I Love You Too!",
+                  d17: "Huh? TABI?!",
+                  d18: "...",
+                  d19: "Skbeep?",
+                  d20: "Shit...",
+                  d21: "So We Finally Meet After 1 Year Of Hiding",
+                  d22: "*Shaking From Fear*",
+                  d23: "Wait? Who Are YOU?",
+                  d24: "Beep Bop Skbeep",
+                  d25: "So You Already Started Dating Another Guy, Yet Another Victim Huh?",
+                  d26: "Listen Dude, This Is My Battle Not Yours Just Let Me End This All, Leave!",
+                  d27: "Beep Bop Dop Skbop",
+                  d28: "You Do Realize That She Is Just Using You, Right?"
+                  # You Get The Point!
+
+              },
+              
+              russian: {
+                  
+                  d1: "Приветик бойфренд!",
+                  d2: "Бип!",
+                  d3: "Я хотела тебе сказать, что приглашаю тебя в ресторан!",
+                  d4: "Бип?",
+                  d5: "Хороший друг моего отца, ну, мой дядя, пригласил меня туда по какой-то причине",
+                  d6: "Скбуп, биип доб скбииб?",
+                  d7: "А! Ещё, он как раз выбрал мой любимый ресторан",
+                  d8: "интересно, откуда он узнал...",
+                  d9: "Не важно! Я хотела тебя взять с собой, чтобы вы наконец-то встретились с ним, он же мой дядя!",
+                  d10: "бип",
+                  d11: "Отлично, тогда я закажу вам",
+                  noone: "И так, они отправились в ресторан на такси",
+                  #adonaionWRW9RJARB9PJWAPBORANIBNRWPOABMRPOAM BAO;RMABPORMAP IMAROI LKMROIWARNUOSHRIASRB  
+                  #do i look like russian now? lol
+                  d12: "Хей, бойфренд, мне нужно в дамскую комнату, подожди меня тут",
+                  d13: "Биип! Скбиип!",
+                  d14: "Ахаха, ладно-ладно, так уж и быть, разрешаю вам провести меня до туалета, мой любимый кавалер",
+                  d15: "*стеснительные бип бопы*",
+                  d16: "Хех, люблю тебя",
+                  d17: "ЧТО? ТАБИ?!",
+
+                  d19: "Скбип?",
+                  d20: "черт…",
+                  d21: "Значит… после целого года пряток мы наконец с тобой встретились?",
+                  d22: "*выглядит напряжённой*",
+                  d23: "Хм?, а ТЫ кто ещё такой?",
+                  d24: "Бип бооп скбип!",
+                  d25: "Значит ты нашла нового жениха уже, не так ли?",
+                  d26: "Слушай малыш, это мой бой, не твой, оставь нас с ней одних, уходи",
+                  d27: "Бип боп скбоп!",
+                  d28: "Надеюсь ты понимаешь, что она использует тебя для своей выгоды?"
+                  
+              },
+              
+              korean: {
+                  d1: "BF 여기 있었네!",
+                  # %#%##%^^%%%%%^^$@!@$!$@ do i look like korean now? lol
+                  d2: "삡!",
+                  d3: "너랑 나랑 같이 레스토랑에 초대됐다는 걸 알려주려고!",
+                  d4: "삡?",
+                  d5: "음, 우리 아빠의 친구가 어떤 이유로 초대해주셨어",
+                  d6: "스끄뽑 뻽? 뻽 돕 뽑",
+                  d7: "내가 제일 좋아하는 레스토랑이야!",
+                  d8: "근데 어떻게 그걸 아신 거지...",
+                  d9: "어쨌든! 너랑 같이 가고 싶었어. 서로 얼굴 보고 좋잖아. 내 삼촌이랑 같이!",
+                  d10: "삡",
+                  d11: "좋아, 그럼 잠시 택시 좀 부를게.",
+                  noone: "그렇게 그들은 GF의 삼촌을 만나기 위해 레스토랑으로 향했다.",
+                  d12: "BF, 나 화장실 좀 갔다 올게. 조금만 기다려줘.",
+                  d13: "삡! 스끄삡!",
+                  d14: "아! 알았어, 알았어! 여기서 호위 좀 해줘 자기.",
+                  d15: "*부끄러운 삡소리*",
+                  d16: "나도 사랑해!",
+                  d17: "허? 타비?!",
+                  d19: "스끄삡?",
+                  d20: "젠장...",
+                  d21: "그래서, 마침내 1년간의 숨바꼭질 끝에 만났군",
+                  d22: "*두려움에 떠는 중*",
+                  d23: "잠깐, 넌 누구야?",
+                  d24: "삡 뽑 스끄삡",
+                  d25: "그럼 벌써 다른 남자랑 사귀기 시작한 건가, 또 다른 피해자를 만들려고 허?",
+                  d26: "잘 들어 친구, 이건 내 일이지 네가 상관할 바가 아니니까, 그냥 내 선에서 끝내도록 하지. 비켜!",
+                  d27: "삡 봅 스끄삡",
+                  d28: "그녀가 널 이용하려고 하는 건 알고 있지, 그렇지?"
+              }
+
+          }
+      },
+      
+      last-chanceDialogue: {
+          languages: {
+          
+              english: {
+                  d1: "GH... How Do You Not Understand, That She Is Just Using You For Her Own Success?",
+                  d2: "Like She Used Me Once, NOW LOOK WHO I AM, JUST A FLOATING SKULL WITH AN INVISIBLE BODY, I'VE LOST EVERYTHING!",
+                  # jesus christ its me gwebdev my man needs to calm down lol
+                  d3: "Beb Bop Beb Bob Skbob Dop",
+                  d4: "This is your last chance to leave, I-I Won't Stop Until I GET MY HANDS ON THAT LITTLE BRAT, LEAVE NOW OR FACE THE CONSEQUENCES",
+                  d5: "...",
+                  kill: "Very well then, I Didn't Want It To End This Way, But, I GUESS I WILL JUST KILL THE BOTH OF YOU!"
+              },
+              
+              russian: {
+                  d1: "Гх… как ты не понимаешь, что она использует тебя лишь для своей собственной выгоды?!",
+                  d2: "Использует так, как использовала... меня когда-то... Теперь посмотри на меня! Кто я теперь!? Летающий череп с невидимым телом? Я потерял всё!",
+                  d3: "Биб боб биб боп сбоп скд",
+                  d4: "Слушай сюда, это твой последний шанс уйти. Я не остановлюсь, пока не доберусь до этой мелкой стервы! Проваливай сейчас-же, или узри последствия",
+                  # I Don't Place d5 In Other Languages Because It's All ... 
+                  # So I Added A Feature Making English The Default Language 
+                  # And If Doesn't Find A Certain Variable Like d5 
+                  # It Will Use The English d5 Variable One
+                  # That Way I Don't Have To Keep Typing It Over And Over Again 
+                  # Just Like Reusing
+                  kill: "Хорошо.. Не хотел я причинять тебе вред, малыш, но ты мне не оставляешь выбора, раз так, то я.. УБЬЮ ВАС ОБОИХ!"
+              },
+              
+              korean: {
+                  d1: "윽... 왜 이해를 못하는 거지, 자기 성공을 위해서 널 이용하는 거라니까?",
+                  d2: "마치 날 한 번 쓰고 버린 것처럼, 날 봐, 그냥 떠다니는 두개골에 투명한 몸까지, 난 모든 것을 잃었다고!",
+                  d3: "뻽 뽑 뻽 뽑 스끄봅 돕",
+                  d4: "마지막으로 떠날 기회를 주지, 난... 난 저 꼬맹이를 손에 넣기 전까진 절대 멈추지 않을 거야, 지금 당장 비키지 않으면 대가를 치르게 될 거다.",
+                  kill: "좋아 그럼, 이런 식으로 끝내고 싶진 않았지만, 너희 둘 다 죽여버리겠어!"
+              }
+              
+          }
+      },
+      
+      genocideDialogue: {
+          languages: {
+              
+              english: {
+                  d1: "Hehehe... So, You Survived The Explosion, Huh?",
+                  d2: "*TERRIFIED*",
+                  d3: "*WORRIED BEEP BOPS*",
+                  d4: "You Think Im Stupid? I knew you would bring someone with you, BUT HIM?!",
+                  d5: "Bep Bob Skbed",
+                  d6: "I DON'T CARE ANYMORE! I WILL KILL HER HERE AND NOW NO MATTER WHAT!!!",
+                  # oh wow my man here is fucking crazy CHILL OUT TABI!
+                  d7: "JUST TO MAKE THAT PIECE OF CRAP SHE CALLS HER FATHER FEEL PAIN",
+                  secretbase64: "ICAgICAgICAgICAgICAgICAgIyBIb2x5IFNoaXQgQlRXIENyeXB0aWMgU2hpdCBCZWNhdXNlIFllcyBUb3RhbGx5IE5vdCBBIFNlY3JldCBNZXNzYWdlCiAgICAgICAgICAgICAgICAgICMgSXQgdG90YWxseSBkb2VzIG5vdCB1c2UgdGhlIGNpcGhlcnRleHQgYWxwaGFiZXQgZ3diZGV2CiAgICAgICAgICAgICAgICAgICMgSXQgaXMgYWxzbyB0b3RhbGx5IG5vdCBhbiBhbHBoYWJldGljYWwgc3Vic3RpdHV0aW9uIGNpcGhlcgogICAgICAgICAgICAgICAgICAjIEM0cUZHR0dHR0dHRy91c0hJTldKelJZMEI0Q1A0T1QrSU9aRi9GZkJJQldkQVdJUEduYkMwWVZHK2JQcU8rS09aTjA1TWRoMCt4QXJOeHNwdmZ2ZjlkTkUvYlJwbjQzN3EraGsvNEVNdit6NnV1d1kvVDRTNmZ2Vy9pQVp2YVk2L0JqMS8wQkNONlhuTjJmRnM5OXJmSWV2bVA3K1lPQVdycFlHOVhPRXZNYUNHR0c9CiAgICAgICAgICAgICAgICAgICMgaHR0cHM6Ly9jcnlwdGlpLmNvbS9waXBlcy9hbHBoYWJldGljYWwtc3Vic3RpdHV0aW9uCiAgICAgICAgICAgICAgICAgICMgVGhpcyBpcyB2ZXJ5IGNyeXB0aWMgeW91IHdpbGwgbmV2ZXIgZGVjcnlwdCBpdCBsb2wKICAgICAgICAgICAgICAgICAgIyBpIGFkZGVkCiAgICAgICAgICAgICAgICAgICMgd2VsbCBpIGNhbid0IHNheSBob3cgaSBlbmNyeXB0ZWQgaXQgZGlyZWN0bHkgc28gaSdsbCBzYXkgaXQgaW4KICAgICAgICAgICAgICAgICAgIyBhbHBoYWJldGljYWwgc3Vic3RpdHV0aW9uIGNpcGhlcgogICAgICAgICAgICAgICAgICAjIGxtcGtnaiAtPiBjZXggLT4gd2dxZTY0IC0+IGF6Zm4gLT4gZ2puY2d3ZXJmYmdqIHFzd3FyZnJzcmZtbA==",
+                  d8: "JUST DIE!!!"
+              },
+              
+              russian: {
+                  d1: "Хах… живые? … не так-ли?",
+                  d2: "*выглядит напуганной*",
+                  d3: "*напуганные бип бопы*",
+                  d4: "Хах… думала я тупой? Я знал, что ты приведёшь кого-то.. охрану например или головорезов, но ЕГО?!",
+                  d5: "Бип боп скбид",
+                  d6: "МНЕ ВСЁ РОВНО! К ЧЕРТУ! Я УБЬЮ ЕЁ ЛЮБОЙ ЦЕНОЙ! ДАЖЕ ЕСЛИ МНЕ НУЖНО БУДЕТ ВЗОРВАТЬ ЦЕЛЫЙ МИР!!!",
+                  d7: "ВСЁ ДЛЯ ТОГО ЧТОБЫ ЭТА МАЛЕНЬКАЯ ДРЯНЬ И ЕЁ ПАПАША СТРАДАЛИ!",
+                  d8: "СДОХНИТЕ!!!"
+              },
+              
+              korean: {
+                  d1: "흐흐흐... 그래서, 이 폭발에서 살아남았군, 허?",
+                  d2: "*겁에 질림*",
+                  d3: "*걱정스러운 삡 뽑 소리*",
+                  d4: "내가 멍청하다고 생각하나? 네가 누군가와 같이 올 거라곤 생각하고 있었지만, 감히 네까짓 래퍼가?!",
+                  d5: "뻽 뽑 스끄두",
+                  d6: "더 이상 상관없다! 무슨 일이 있어도 난 당장 여기서 저년을 죽여버리겠어!!!",
+                  d7: "그녀의 아빠에게 주옥같은 고통을 주기 위해...",
+                  d8: "죽어라!!!"
+              }
+              
+          }
+      }
+
+}
+
+languageNames:
+    - english
+    - russian
+    - korean
+    - hodor
+
+settings: {
+
+      english: {
+          font: "15111.ttf",
+          size: 32
+      },
+      
+      russian: {
+          size: 25
+      },
+      
+      korean: {
+          font: "gabia_solmee.ttf",
+          size: 35
+      }
+
+}

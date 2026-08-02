@@ -13,14 +13,24 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
+#if (web || android)
+import ui.FlxVirtualPad;
+#end
+
 class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Restart With Dialogues', 'Exit to menu'];
+	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Restart With Dialogues', 'Toggle Practice Mode', 'Exit to menu'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
+	
+	#if (web || android)
+	var _pad:FlxVirtualPad;
+	#end
+	
+	var isPracticeMode:FlxText;
 
 	public function new(x:Float, y:Float)
 	{
@@ -50,16 +60,25 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
 		levelDifficulty.updateHitbox();
 		add(levelDifficulty);
+		
+		isPracticeMode = new FlxText(20, 15 + 64, 0, "", 32);
+		isPracticeMode.scrollFactor.set();
+		isPracticeMode.setFormat(Paths.font('vcr.ttf'), 32);
+		isPracticeMode.updateHitbox();
+		add(isPracticeMode);
 
+		isPracticeMode.alpha = 0;
 		levelDifficulty.alpha = 0;
 		levelInfo.alpha = 0;
 
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
+		isPracticeMode.x = FlxG.width - (isPracticeMode.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(isPracticeMode, {alpha: 1, y: isPracticeMode.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
@@ -75,6 +94,12 @@ class PauseSubState extends MusicBeatSubstate
 		changeSelection();
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 2]];
+
+		#if (web || android)
+		_pad = new FlxVirtualPad(UP_DOWN, A);
+		_pad.alpha = 0.75;
+		add(_pad);
+		#end
 	}
 
 	override function update(elapsed:Float)
@@ -83,10 +108,31 @@ class PauseSubState extends MusicBeatSubstate
 			pauseMusic.volume += 0.01 * elapsed;
 
 		super.update(elapsed);
+		
+		var toUse:String = PlayState.practiceMode ? "On" : "Off";
+		
+		isPracticeMode.text = "Practice Mode: " + toUse;
+		isPracticeMode.x = FlxG.width - (isPracticeMode.width + 20);
 
-		var upP = controls.UP_P;
-		var downP = controls.DOWN_P;
-		var accepted = controls.ACCEPT;
+		var upP:Bool = false;
+		var downP:Bool = false;
+		var accepted:Bool = false;
+		
+		#if (web || android)
+		upP = controls.UP_P || _pad.buttonUp.justPressed;
+		downP = controls.DOWN_P || _pad.buttonDown.justPressed;
+		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
+		#if android
+		if (FlxG.android.justReleased.BACK)
+		{
+		accepted = true;
+		}
+		#end
+		#else
+		upP = controls.UP_P;
+		downP = controls.DOWN_P;
+		accepted = controls.ACCEPT;
+		#end
 
 		if (upP)
 		{
@@ -95,6 +141,10 @@ class PauseSubState extends MusicBeatSubstate
 		if (downP)
 		{
 			changeSelection(1);
+		}
+		if (Highscore.getInput() && FlxG.mouse.wheel != 0)
+		{
+			changeSelection(FlxG.mouse.wheel * -1);
 		}
 
 		if (accepted)
@@ -109,6 +159,9 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.resetState();
 				case "Restart With Dialogues":
 					PlayState.showCutscene = true;
+					FlxG.resetState();
+				case "Toggle Practice Mode":
+					PlayState.practiceMode = !PlayState.practiceMode;
 					FlxG.resetState();
 				case "Exit to menu":
 					FlxG.switchState(new MainMenuState());

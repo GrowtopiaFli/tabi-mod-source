@@ -4,6 +4,11 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 
+import flixel.FlxCamera;
+#if (web || android)
+import ui.FlxVirtualPad;
+#end
+
 class GitarooPause extends MusicBeatState
 {
 	var replayButton:FlxSprite;
@@ -15,9 +20,32 @@ class GitarooPause extends MusicBeatState
 	{
 		super();
 	}
+	
+	var mainCam:FlxCamera;
+	var higherCam:FlxCamera;
+	
+	#if (web || android)
+	var _pad:FlxVirtualPad;
+	#end
 
 	override function create()
 	{
+		mainCam = new FlxCamera();
+		higherCam = new FlxCamera();
+		higherCam.bgColor.alpha = 0;
+	
+		FlxG.cameras.reset(mainCam);
+		FlxG.cameras.add(higherCam);
+		
+		FlxCamera.defaultCameras = [mainCam];
+		
+		#if (web || android)
+		_pad = new FlxVirtualPad(LEFT_RIGHT, A);
+		_pad.alpha = 0.75;
+		add(_pad);
+		_pad.cameras = [higherCam];
+		#end
+	
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
@@ -52,10 +80,24 @@ class GitarooPause extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (controls.LEFT_P || controls.RIGHT_P)
+		var LEFT_P:Bool = false;
+		var RIGHT_P:Bool = false;
+		var accepted:Bool = false;
+		
+		#if (web || android)
+		LEFT_P = controls.LEFT_P || _pad.buttonLeft.justPressed;
+		RIGHT_P = controls.RIGHT_P || _pad.buttonRight.justPressed;
+		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
+		#else
+		LEFT_P = controls.LEFT_P;
+		RIGHT_P = controls.RIGHT_P;
+		accepted = controls.ACCEPT;
+		#end
+	
+		if (LEFT_P || RIGHT_P)
 			changeThing();
 
-		if (controls.ACCEPT)
+		if (accepted)
 		{
 			if (replaySelect)
 			{

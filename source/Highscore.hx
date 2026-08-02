@@ -15,7 +15,7 @@ import openfl.Lib;
 
 class Highscore
 {
-	public static var weekData:Array<String> = [
+	public static var weekDataOrig:Array<String> = [
 	'tutorial',
 	'week1',
 	'week2',
@@ -25,6 +25,8 @@ class Highscore
 	'week6',
 	'curse'
 	];
+	
+	public static var weekData:Array<String> = weekDataOrig;
 	
 	public static var storyWeekNames:Array<String> = [
 	'Tutorial',
@@ -42,11 +44,13 @@ class Highscore
 	public static var miscData:Map<String, Bool> = new Map();
 	public static var visualEffects:Map<String, String> = new Map();
 	public static var keyb:Map<Int, String> = new Map();
+	public static var vals:Map<String, Int> = new Map();
 	#else
 	public static var songScores:Map<String, Int> = new Map<String, Int>();
 	public static var miscData:Map<String, Bool> = new Map<String, Bool>();
 	public static var visualEffects:Map<String, String> = new Map<String, String>();
 	public static var keyb:Map<Int, String> = new Map<Int, String>();
+	public static var vals:Map<String, Int> = new Map<String, Int>();
 	#end
 	
 	public static function toggleEffect(effect:Int):Void
@@ -270,6 +274,14 @@ class Highscore
 	return miscData.get('downscroll');
 	}
 	
+	public static function getDS():Bool
+	{
+	if (!miscData.exists('disableshaders'))
+		setKey('disableshaders', false);
+
+	return miscData.get('disableshaders');
+	}
+	
 	public static function setKey(whatkey:String, what:Bool):Void
 	{
 	miscData.set(whatkey, what);
@@ -280,6 +292,52 @@ class Highscore
 	public static function toggleDownscroll():Void
 	{
 	setKey('downscroll', !miscData.get('downscroll'));
+	}
+	
+	public static function toggleDS():Void
+	{
+	setKey('disableshaders', !miscData.get('disableshaders'));
+	}
+	
+	public static function getVal():Int
+	{
+	if (!vals.exists('vals'))
+		setVal(0);
+
+	return vals.get('vals');
+	}
+	
+	public static function moveVal():Void
+	{
+		var daInt:Int = getVal();
+		daInt++;
+		if (daInt  > 3)
+		{
+		daInt = 0;
+		}
+		setVal(daInt);
+	}
+	
+	public static function setVal(daInt:Int):Void
+	{
+		vals.set('vals', daInt);
+		FlxG.save.data.vals = vals;
+		FlxG.save.flush();
+	}
+	
+	public static function setLang(daInt:Int):Void
+	{
+		vals.set('lang', daInt);
+		FlxG.save.data.vals = vals;
+		FlxG.save.flush();
+	}
+	
+	public static function getLang():Int
+	{
+		if (!vals.exists('lang'))
+		setLang(0);
+
+		return vals.get('lang');
 	}
 	
 	public static function getInput():Bool
@@ -450,6 +508,10 @@ class Highscore
 		if (FlxG.save.data.Effects != null)
 		{
 			visualEffects = FlxG.save.data.Effects;
+		}
+		if (FlxG.save.data.vals != null)
+		{
+			vals = FlxG.save.data.vals;
 		}
 	}
 }

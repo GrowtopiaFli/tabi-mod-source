@@ -24,6 +24,8 @@ import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
 
+import haxe.Http;
+
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -46,10 +48,29 @@ class TitleState extends MusicBeatState
 	var wackyImage:FlxSprite;
 	
 	var isReady:Bool = false;
+	
+	public var warningTxt:FlxText;
+	
+	public var warningBG:FlxSprite;
+
+	public var showWarning:Bool = false;
+	public static var skippedWarning:Bool = false;
+	public var onceBullshit:Bool = false;
 
 	override public function create():Void
 	{
 		isReady = false;
+
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+		
+		#if (android || web)
+		Highscore.weekData = [Highscore.weekData[Highscore.weekData.length - 1]];
+		Highscore.storyWeekNames = [Highscore.storyWeekNames[Highscore.storyWeekNames.length - 1]];
+		#end
+		
+		MLanguageDialogueParser.init();
 
 		#if polymod
 		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
@@ -207,7 +228,9 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
+		#if !web
 		FlxG.mouse.visible = false;
+		#end
 
 		if (initialized)
 			skipIntro();
@@ -216,6 +239,17 @@ class TitleState extends MusicBeatState
 
 		// credGroup.add(credTextShit);
 		
+		warningBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		warningTxt = new FlxText(0, 360, FlxG.width,
+		"WARNING:\nVS TABI may potentially trigger seizures for people with photosensitive epilepsy. This can be disabled in the options menu.\n\n"
+		+ "Press ENTER/Tap SCREEN to proceed",
+		32);
+		warningTxt.y = 200;
+		warningTxt.setFormat(Paths.font("15111.ttf"), 32, FlxColor.WHITE, CENTER);
+		
+		add(warningBG);
+		add(warningTxt);
+
 		isReady = true;
 	}
 
@@ -272,7 +306,7 @@ class TitleState extends MusicBeatState
 			#end
 		}
 
-		if (pressedEnter && !transitioning && skippedIntro)
+		if (pressedEnter && !transitioning && skippedIntro && !showWarning)
 		{
 			/*#if !switch
 			NGio.unlockMedal(60960);
@@ -290,11 +324,62 @@ class TitleState extends MusicBeatState
 			transitioning = true;
 			// FlxG.sound.music.stop();
 
-			new FlxTimer().start(2, function(tmr:FlxTimer)
+			//FlxTween.tween(FlxG.camera, { zoom: 1.25, angle: 5 }, 1, {ease: FlxEase.quadIn, onComplete: function(tmr:FlxTween)
+			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
+				if (!skippedWarning)
+				{
+					onceBullshit = false;
+					showWarning = true;
+				}
+			}, 1);
+			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
+		}
+		
+		if (showWarning)
+		{
+			if (isReady)
+			{
+				warningBG.visible = true;
+				warningTxt.visible = true;
+				var adder:Float = 1 / 60;
+				
+				if (warningBG.alpha < 1)
+				{
+					if (warningBG.alpha + adder > 1)
+					{
+						warningBG.alpha = 1;
+					}
+					else
+					{
+						warningBG.alpha += adder;
+					}
+				}
+				
+				warningTxt.alpha = warningBG.alpha;
+			}
+			if (pressedEnter)
+			{
+				showWarning = false;
+				skippedWarning = true;
+				onceBullshit = false;
+			}
+		}
+		else if (isReady)
+		{
+			warningBG.visible = false;
+			warningTxt.visible = false;
+			warningBG.alpha = 0;
+			warningTxt.alpha = 0;
+		}
+		
+		if (skippedWarning && !onceBullshit && pressedEnter)
+		{
+			showWarning = false;
+			onceBullshit = true;
 				// Check if version is outdated
 
-				var version:String = "v" + Application.current.meta.get('version');
+				//var version:String = "v" + Application.current.meta.get('version');
 
 				//if (version.trim() != NGio.GAME_VER_NUMS.trim() && !OutdatedSubState.leftState)
 				/*if (false)
@@ -309,11 +394,36 @@ class TitleState extends MusicBeatState
 				}
 				else
 				{*/
-					isReady = false;
-					FlxG.switchState(new MainMenuState());
+					var http:Http = new Http("https://raw.githubusercontent.com/GrowtopiaFli/tabi-mod-source/main/current.version");
+					http.onData = function(data:String)
+					{
+						isReady = false;
+						OutdatedSubState.daVer = data;
+						UpdatedSubState.daVer = data;
+						if (VersionParser.parse(CurrentVersion.get()) < VersionParser.parse(data) && !OutdatedSubState.leftState)
+						{
+							FlxG.switchState(new OutdatedSubState());
+						}
+						else if (VersionParser.parse(CurrentVersion.get()) >  VersionParser.parse(data) && !UpdatedSubState.leftState)
+						{
+							FlxG.switchState(new UpdatedSubState());
+						}
+						else
+						{
+							FlxG.switchState(new MainMenuState());
+						}
+					}
+					
+					http.onError = function(error)
+					{
+						trace('error: $error');
+						isReady = false;
+						FlxG.switchState(new MainMenuState());
+					}
+					
+					http.request();
+					//FlxTween.tween(FlxG.camera, { zoom: 1 }, 0.5, {ease: FlxEase.quadIn });
 				//}
-			});
-			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
 
 		if (pressedEnter && !skippedIntro)
@@ -376,7 +486,7 @@ class TitleState extends MusicBeatState
 				//createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
 			// credTextShit.visible = true;
 			case 3:
-				createCoolText(['Homskiy', 'Tenzubushi', 'Lad', 'GWebDev', 'present']);
+				createCoolText(['Homskiy', 'Tenzubushi', 'Lad', 'GWebDev', 'BrightFyre', 'ZacksGamerz', 'present']);
 				//addMoreText('present');
 			// credTextShit.text += '\npresent...';
 			// credTextShit.addText();

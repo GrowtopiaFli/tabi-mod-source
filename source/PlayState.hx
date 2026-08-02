@@ -53,6 +53,10 @@ import openfl.Lib;
 import Discord.DiscordClient;
 #end
 
+#if (web || android)
+import ui.FlxVirtualPad;
+#end
+
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxAxes;
 
@@ -61,10 +65,15 @@ import Cutscene2;
 
 //import ChromaticAberration;
 
+#if (web || android)
+import vcontrols.VisualControls;
+#end
+
 using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	public var loadIt:Bool = false;
 	public static var showCutscene:Bool = true;
 	public var genocideCommands:Array<Array<Dynamic>> = [];
 	
@@ -209,6 +218,8 @@ class PlayState extends MusicBeatState
 	var siniFireBehind:FlxTypedGroup<SiniFire>;
 	var siniFireFront:FlxTypedGroup<SiniFire>;
 	
+	var bullshitKeys:Array<String> = [];
+	
 	#if desktop
 	var iconRPC:String = "";
 	var iconRPCBefore:String = "";
@@ -216,9 +227,20 @@ class PlayState extends MusicBeatState
 	var detailsText:String = "";
 	var storyText:String = "NORMAL";
 	#end
+	
+	#if (web || android)
+	var visualControls:VisualControls; 
+	var pauseButton:FlxVirtualPad;
+	#end
+	
+	public static var practiceMode:Bool = false;
 
 	override public function create()
 	{
+		//practiceMode = false;
+		//ChromaHandler.chromaticAberration = new ShaderFilter(new ChromaticAberration());
+		//BrightHandler.brightShader = new ShaderFilter(new Bright());
+	
 		resetChromeShit2();
 	
 		/*if (SONG.song.toLowerCase() == 'genocide')
@@ -271,16 +293,19 @@ class PlayState extends MusicBeatState
 		//FUCKING SHITTY SHADER CODE
 		filterMap = Highscore.getEffectList();
 		
-		FlxG.game.setFilters(filters);
+		/*FlxG.game.setFilters(filters);
 		
-		FlxG.game.filtersEnabled = false;
+		FlxG.game.filtersEnabled = false;*/
 		
-		var bullshitKeys:Array<String> = Highscore.getEffectKeys();
+		bullshitKeys = Highscore.getEffectKeys();
 		
 		for (key in filterMap.keys())
 		{
 			filterList.push(filterMap.get(key).filter);
 		}
+		
+		//filterList2.push(chromaticAberration);
+		//filterList2.push(brightShader);
 		
 		trace(bullshitKeys);
 		
@@ -322,12 +347,32 @@ class PlayState extends MusicBeatState
 		FlxG.cameras.add(camHUD3);
 		//FlxG.cameras.add(camHUD2);
 		FlxG.cameras.add(camHUD4);
+
+		#if (web || android)
+		visualControls = new VisualControls();
+		var camcontrol = new FlxCamera();
+		FlxG.cameras.add(camcontrol);
+		camcontrol.bgColor.alpha = 0;
+		visualControls.cameras = [camcontrol];
+
+		add(visualControls);
+		
+		pauseButton = new FlxVirtualPad(NONE, P);
+		var pauseCam = new FlxCamera();
+		FlxG.cameras.add(pauseCam);
+		pauseCam.bgColor.alpha = 0;
+		pauseButton.cameras = [pauseCam];
+		pauseButton.alpha = 0.75;
+		
+		add(pauseButton);
+		#end
+
 		FlxG.cameras.add(camHUD5);
 		FlxG.cameras.add(camIllusion);		
 		FlxG.cameras.add(cutsceneCam);
 
 		FlxCamera.defaultCameras = [camGame];
-
+		
 		//IT DOESNT END HERE FUCK
 		camGame.setFilters(filters);
 		//camHUD2.setFilters(filters);
@@ -336,6 +381,7 @@ class PlayState extends MusicBeatState
 		camHUD3.setFilters(filters);
 		cutsceneCam.setFilters(filters);
 		camHUD5.setFilters(filters);
+		camIllusion.setFilters(filters);
 		camGame.filtersEnabled = true;
 		//camHUD2.filtersEnabled = true;
 		noteCam.filtersEnabled = true;
@@ -343,7 +389,10 @@ class PlayState extends MusicBeatState
 		camHUD3.filtersEnabled = true;
 		cutsceneCam.filtersEnabled = true;
 		camHUD5.filtersEnabled = true;
+		camIllusion.filtersEnabled = true;
 		
+		if (!Highscore.getDS())
+		{
 		for (i in 0...filterList.length)
 		{
 		var kys = bullshitKeys[i];
@@ -353,11 +402,12 @@ class PlayState extends MusicBeatState
 		else
 			filters.remove(filterList[i]);
 		}
+		}
 		
-		filters.push(chromaticAberration);
-		//filters.push(shockwave);
-		filters.push(brightShader);
-		//WELL SHIT
+		/*for (i in 0...filterList2.length)
+		{
+		filters.push(filterList2[i]);
+		}*/
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -874,6 +924,9 @@ class PlayState extends MusicBeatState
 				destBoombox.y += 150;
 				destBoombox.x -= 110;
 				destBoombox.scale.set(1.2, 1.2);
+				#if onlyTabi
+				destBoombox.visible = false;
+				#end
 				add(destBoombox);
 		}
 
@@ -881,6 +934,9 @@ class PlayState extends MusicBeatState
 			gfVersion = 'gf-car';
 
 		gf = new Character(400, 130, gfVersion);
+		#if onlyTabi
+		gf.visible = false;
+		#end
 
 		if (curStage != 'genocide')
 		{
@@ -935,6 +991,9 @@ class PlayState extends MusicBeatState
 		}
 
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
+		#if onlyTabi
+			boyfriend.visible = false;
+		#end
 
 		// REPOSITIONING PER STAGE
 		switch (curStage)
@@ -1094,6 +1153,9 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 
 		iconP1 = new HealthIcon(SONG.player1, true);
+		#if onlyTabi
+		iconP1.visible = false;
+		#end
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 
 		iconP2 = new HealthIcon(SONG.player2, false);
@@ -1553,6 +1615,23 @@ class PlayState extends MusicBeatState
 				{
 					daNoteDataMod = (daNoteDataMod == 0) ? 3 : (daNoteDataMod == 3) ? 0 : (daNoteDataMod == 1) ? 2 : (daNoteDataMod == 2) ? 1 : daNoteDataMod;
 				}*/
+				
+				/*
+				if (FlxG.random.bool(50))
+				{
+					switch(daNewNoteData)
+					{
+						case 0:
+							daNewNoteData = 3;
+						case 1:
+							daNewNoteData = 2;
+						case 2:
+							daNewNoteData = 1;
+						default:
+							daNewNoteData = 0;
+					}
+				}
+				*/
 
 				var swagNote:Note = new Note(Highscore.getDownscroll(), daStrumTime, daNoteData, oldNote);
 				swagNote.sustainLength = songNotes[2];
@@ -2029,6 +2108,10 @@ class PlayState extends MusicBeatState
 		}
 		
 		scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Health:" + Math.round(health * 50) + "% | " + baseText;
+		if (practiceMode)
+		{
+			scoreTxt.text += " | Practice Mode";
+		}
 		
 		if (health >= 0)
 		{
@@ -2041,8 +2124,22 @@ class PlayState extends MusicBeatState
 		scoreTxt.text = "Offset Debugger Version 1.0 By GWebDev";
 		daShitText = "Offset Testing";
 		#end
+		
+		var accepted:Bool = false;
+		
+		#if (web || android)
+		accepted = FlxG.keys.justPressed.ENTER || pauseButton.buttonP.justPressed;
+		#if android
+		if (FlxG.android.justReleased.BACK)
+		{
+		accepted = true;
+		}
+		#end
+		#else
+		accepted = FlxG.keys.justPressed.ENTER;
+		#end
 
-		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
+		if (accepted && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
 			persistentDraw = true;
@@ -2171,12 +2268,16 @@ class PlayState extends MusicBeatState
 
 		if ((!crazyMode && healthBar.percent > 80) || (crazyMode && (health / 2 * 100) > 100))
 		{
+			#if desktop
 			iconRPC = iconRPCBefore + "-dead";
+			#end
 			iconP2.animation.curAnim.curFrame = 1;
 		}
 		else
 		{
+			#if desktop
 			iconRPC = iconRPCBefore;
+			#end
 			iconP2.animation.curAnim.curFrame = 0;
 		}
 
@@ -2360,8 +2461,13 @@ class PlayState extends MusicBeatState
 			health += 1;
 			trace("User is cheating!");
 		}
+		
+		var onlyTabi:Bool = false;
+		#if onlyTabi
+		onlyTabi = true;
+		#end
 
-		if (health <= 0)
+		if (health <= 0 && !practiceMode && !onlyTabi)
 		{
 			chromDanced = true;
 			setChrome(0.0);
@@ -2404,6 +2510,10 @@ class PlayState extends MusicBeatState
 			}
 
 			// FlxG.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		}
+		else if (health < 0 && (practiceMode || onlyTabi))
+		{
+			health = 0;
 		}
 
 		if (unspawnNotes[0] != null)
@@ -2608,6 +2718,9 @@ class PlayState extends MusicBeatState
 							}
 						}
 						health -= 0.0475;
+						#if (web || android)
+						health += 0.01;
+						#end
 						vocals.volume = 0;
 						notesPassing += 1;
 					}
@@ -2668,7 +2781,10 @@ class PlayState extends MusicBeatState
 		if (SONG.validScore)
 		{
 			#if !switch
+			if (!practiceMode)
+			{
 			Highscore.saveScore(SONG.song, songScore, storyDifficulty);
+			}
 			#end
 		}
 
@@ -2690,7 +2806,7 @@ class PlayState extends MusicBeatState
 				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-				if (SONG.validScore)
+				if (SONG.validScore && !practiceMode)
 				{
 					//NGio.unlockMedal(60961);
 					Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
@@ -2985,6 +3101,22 @@ class PlayState extends MusicBeatState
 		
 		var gtk = Highscore.getKeyBind;
 		
+		#if (web || android)
+		var up = chk(prk, gtk(0)) || chk(prk, gtk(4)) || visualControls.UP;
+		var left = chk(prk, gtk(1)) || chk(prk, gtk(5)) || visualControls.LEFT;
+		var down = chk(prk, gtk(2)) || chk(prk, gtk(6)) || visualControls.DOWN;
+		var right = chk(prk, gtk(3)) || chk(prk, gtk(7)) || visualControls.RIGHT;
+
+		var upP = chk(prkP, gtk(0)) || chk(prkP, gtk(4)) || visualControls.UP_P;
+		var leftP = chk(prkP, gtk(1)) || chk(prkP, gtk(5)) || visualControls.LEFT_P;
+		var downP = chk(prkP, gtk(2)) || chk(prkP, gtk(6)) || visualControls.DOWN_P;
+		var rightP = chk(prkP, gtk(3)) || chk(prkP, gtk(7)) || visualControls.RIGHT_P;
+
+		var upR = chk(prkR, gtk(0)) || chk(prkR, gtk(4)) || visualControls.UP_R;
+		var leftR = chk(prkR, gtk(1)) || chk(prkR, gtk(5)) || visualControls.LEFT_R;
+		var downR = chk(prkR, gtk(2)) || chk(prkR, gtk(6)) || visualControls.DOWN_R;
+		var rightR = chk(prkR, gtk(3)) || chk(prkR, gtk(7)) || visualControls.RIGHT_R;
+		#else
 		var up = chk(prk, gtk(0)) || chk(prk, gtk(4));
 		var left = chk(prk, gtk(1)) || chk(prk, gtk(5));
 		var down = chk(prk, gtk(2)) || chk(prk, gtk(6));
@@ -2999,6 +3131,27 @@ class PlayState extends MusicBeatState
 		var leftR = chk(prkR, gtk(1)) || chk(prkR, gtk(5));
 		var downR = chk(prkR, gtk(2)) || chk(prkR, gtk(6));
 		var rightR = chk(prkR, gtk(3)) || chk(prkR, gtk(7));
+		#end
+		
+		#if (web || android)
+		if (pauseButton.buttonP.justPressed)
+		{
+		up = false;
+		left = false;
+		down = false;
+		right = false;
+
+		upP = false;
+		leftP = false;
+		downP = false;
+		rightP = false;
+
+		upR = false;
+		leftR = false;
+		downR = false;
+		rightR = false;
+		}
+		#end
 
 		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 		
@@ -3037,7 +3190,6 @@ class PlayState extends MusicBeatState
 			if (possibleNotes.length > 0)
 			{
 				var daNote = possibleNotes[0];
-
 				if (perfectMode)
 					noteCheck(true, daNote);
 
@@ -3191,6 +3343,11 @@ class PlayState extends MusicBeatState
 					trace("must press: " + daNote.mustPress);
 					trace("---");
 				}*/
+				var onlyTabi:Bool = false;
+				#if onlyTabi
+				onlyTabi = true;
+				#end
+
 				if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
 				{
 					switch (daNote.noteData)
@@ -3277,6 +3434,10 @@ class PlayState extends MusicBeatState
 		
 		playerStrums.forEach(function(spr:FlxSprite)
 		{
+			#if onlyTabi
+			spr.visible = false;
+			#end
+			
 			switch (spr.ID)
 			{
 				case 0:
@@ -3410,10 +3571,17 @@ class PlayState extends MusicBeatState
 		
 		var gtk = Highscore.getKeyBind;
 		
+		#if (web || android)
+		var upP = Reflect.getProperty(prPk, gtk(0)) || Reflect.getProperty(prPk, gtk(4)) || visualControls.UP_P;
+		var leftP = Reflect.getProperty(prPk, gtk(1)) || Reflect.getProperty(prPk, gtk(5)) || visualControls.LEFT_P;
+		var downP = Reflect.getProperty(prPk, gtk(2)) || Reflect.getProperty(prPk, gtk(6)) || visualControls.DOWN_P;
+		var rightP = Reflect.getProperty(prPk, gtk(3)) || Reflect.getProperty(prPk, gtk(7)) || visualControls.RIGHT_P;
+		#else
 		var upP = Reflect.getProperty(prPk, gtk(0)) || Reflect.getProperty(prPk, gtk(4));
 		var leftP = Reflect.getProperty(prPk, gtk(1)) || Reflect.getProperty(prPk, gtk(5));
 		var downP = Reflect.getProperty(prPk, gtk(2)) || Reflect.getProperty(prPk, gtk(6));
 		var rightP = Reflect.getProperty(prPk, gtk(3)) || Reflect.getProperty(prPk, gtk(7));
+		#end
 
 		if (leftP)
 			missUp(0);
@@ -3440,10 +3608,27 @@ class PlayState extends MusicBeatState
 		
 		var gtk = Highscore.getKeyBind;
 		
+		#if (web || android)
+		var upP = Reflect.getProperty(prPk, gtk(0)) || Reflect.getProperty(prPk, gtk(4)) || visualControls.UP_P;
+		var leftP = Reflect.getProperty(prPk, gtk(1)) || Reflect.getProperty(prPk, gtk(5)) || visualControls.LEFT_P;
+		var downP = Reflect.getProperty(prPk, gtk(2)) || Reflect.getProperty(prPk, gtk(6)) || visualControls.DOWN_P;
+		var rightP = Reflect.getProperty(prPk, gtk(3)) || Reflect.getProperty(prPk, gtk(7)) || visualControls.RIGHT_P;
+		#else
 		var upP = Reflect.getProperty(prPk, gtk(0)) || Reflect.getProperty(prPk, gtk(4));
 		var leftP = Reflect.getProperty(prPk, gtk(1)) || Reflect.getProperty(prPk, gtk(5));
 		var downP = Reflect.getProperty(prPk, gtk(2)) || Reflect.getProperty(prPk, gtk(6));
 		var rightP = Reflect.getProperty(prPk, gtk(3)) || Reflect.getProperty(prPk, gtk(7));
+		#end
+		
+		#if (web || android)
+		if (pauseButton.buttonP.justPressed)
+		{
+		upP = false;
+		leftP = false;
+		downP = false;
+		rightP = false;
+		}
+		#end
 
 		if (!Highscore.getInput())
 		{
@@ -3534,6 +3719,10 @@ class PlayState extends MusicBeatState
 			{
 				health += 0.05;
 			}
+			
+			#if (web || android)
+			health += 0.05;
+			#end
 
 			switch (note.noteData)
 			{
@@ -3658,11 +3847,16 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
+		/*if (curBeat > 0 && FlxG.sound.music != null && FlxG.sound.music.playing)
+		{
+			Conductor.songPosition = FlxG.sound.music.time;
+			vocals.time = Conductor.songPosition;
+		}*/
 		/*if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
 			resyncVocals();
 		}*/
-		var fkUMultiplier:Float = 5;
+		var fkUMultiplier:Float = 10;
 		if ((FlxG.sound.music.time > Conductor.songPosition + fkUMultiplier || FlxG.sound.music.time < Conductor.songPosition - fkUMultiplier) || (vocals.playing && (vocals.time > Conductor.songPosition || vocals.time < Conductor.songPosition)))
 		{
 			resyncVocals();
@@ -3785,6 +3979,28 @@ class PlayState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
+		//trace(curBeat);
+		//fix for my stupidity because i am a mistake lol
+		//nvm i was stupid with my bright shader lol
+		if (curBeat > 0 && !loadIt)
+		{
+		loadIt = true;
+		
+		if (!Highscore.getPhoto() && !Highscore.getDS())
+		{
+		//ChromaHandler.chromaticAberration = new ShaderFilter(new ChromaticAberration());
+		filters.push(ShadersHandler.chromaticAberration);
+		//BrightHandler.brightShader = new ShaderFilter(new Bright());		
+		filters.push(ShadersHandler.brightShader);
+		}
+		
+		//i finally found a fix lol this dipshit i swear to god
+		
+		//filters.push(ChromaHandler.chromaticAberration);
+		//filters.push(shockwave);
+		//filters.push(BrightHandler.brightShader);
+		//WELL SHIT
+		}
 		
 		/*#if desktop
 		if (!FlxG.fullscreen)

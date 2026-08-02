@@ -13,6 +13,17 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 
+import flixel.tweens.FlxEase;
+
+#if desktop
+import Discord.DiscordClient;
+#end
+
+import flixel.FlxCamera;
+#if (web || android)
+import ui.FlxVirtualPad;
+#end
+
 using StringTools;
 
 class StoryMenuState extends MusicBeatState
@@ -71,11 +82,39 @@ class StoryMenuState extends MusicBeatState
 	var sprDifficulty:FlxSprite;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
+	
+	var specialDeliveryShit:Bool = false;
+	
+	var mainCam:FlxCamera;
+	var higherCam:FlxCamera;
+	
+	#if (web || android)
+	var _pad:FlxVirtualPad;
+	#end
+	
+	var danced:Bool = false;
 
 	override function create()
 	{
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
+		
+		mainCam = new FlxCamera();
+		higherCam = new FlxCamera();
+		higherCam.bgColor.alpha = 0;
+	
+		FlxG.cameras.reset(mainCam);
+		FlxG.cameras.add(higherCam);
+		
+		FlxCamera.defaultCameras = [mainCam];
+		
+		#if (web || android)
+		_pad = new FlxVirtualPad(FULL, A_B);
+		_pad.alpha = 0.65;
+		add(_pad);
+		_pad.cameras = [higherCam];
+		specialDeliveryShit = true;
+		#end
 
 		if (FlxG.sound.music != null)
 		{
@@ -84,6 +123,11 @@ class StoryMenuState extends MusicBeatState
 		}
 
 		persistentUpdate = persistentDraw = true;
+		
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In Story Menu...", null);
+		#end
 
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
 		scoreText.setFormat("VCR OSD Mono", 32);
@@ -228,6 +272,35 @@ class StoryMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		var upP:Bool = false;
+		var downP:Bool = false;
+		var accepted:Bool = false;
+		var LEFT_P:Bool = false;
+		var RIGHT_P:Bool = false;
+		var backed:Bool = false;
+		
+		#if (web || android)
+		upP = controls.UP_P || _pad.buttonUp.justPressed;
+		downP = controls.DOWN_P || _pad.buttonDown.justPressed;
+		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
+		LEFT_P = controls.LEFT_P || _pad.buttonLeft.justPressed;
+		RIGHT_P = controls.RIGHT_P || _pad.buttonRight.justPressed;
+		backed = controls.BACK || _pad.buttonB.justPressed;
+		#if android
+		if (FlxG.android.justReleased.BACK)
+		{
+		backed = true;
+		}
+		#end
+		#else
+		upP = controls.UP_P;
+		downP = controls.DOWN_P;
+		accepted = controls.ACCEPT;
+		LEFT_P = controls.LEFT_P;
+		RIGHT_P = controls.RIGHT_P;
+		backed = controls.BACK;
+		#end
+	
 		// scoreText.setFormat('VCR OSD Mono', 32);
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.5));
 
@@ -239,6 +312,9 @@ class StoryMenuState extends MusicBeatState
 		// FlxG.watch.addQuick('font', scoreText.font);
 
 		difficultySelectors.visible = weekUnlocked[curWeek];
+		
+		if (FlxG.sound.music != null && FlxG.sound.music.playing)
+            Conductor.songPosition = FlxG.sound.music.time;
 
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
@@ -249,42 +325,55 @@ class StoryMenuState extends MusicBeatState
 		{
 			if (!selectedWeek)
 			{
-				if (controls.UP_P)
+				if (upP)
 				{
 					changeWeek(-1);
 				}
 
-				if (controls.DOWN_P)
+				if (downP)
 				{
 					changeWeek(1);
 				}
+				
+				if (Highscore.getInput() && FlxG.mouse.wheel != 0)
+				{
+					changeWeek(FlxG.mouse.wheel * -1);
+				}
 
-				if (controls.RIGHT)
+				if (RIGHT_P)
 					rightArrow.animation.play('press')
 				else
 					rightArrow.animation.play('idle');
 
-				if (controls.LEFT)
+				if (LEFT_P)
 					leftArrow.animation.play('press');
 				else
 					leftArrow.animation.play('idle');
 
-				if (controls.RIGHT_P)
+				if (RIGHT_P)
 					changeDifficulty(1);
-				if (controls.LEFT_P)
+				if (LEFT_P)
 					changeDifficulty(-1);
 			}
 
-			if (controls.ACCEPT)
+			if (accepted)
 			{
+				#if (web || android)
+				if (curWeek > 6)
+				{
+					selectWeek();
+				}
+				#else
 				selectWeek();
+				#end
 			}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek)
+		if (backed && !movedBack && !selectedWeek)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
+			//FlxTween.tween(FlxG.camera, { zoom: 0.1 }, 1, { ease: FlxEase.quadIn });
 			FlxG.switchState(new MainMenuState());
 		}
 
@@ -326,10 +415,15 @@ class StoryMenuState extends MusicBeatState
 
 			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
 			PlayState.storyWeek = curWeek;
+			if (specialDeliveryShit)
+			{
+				PlayState.storyWeek = 0;
+			}
 			PlayState.campaignScore = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
 				PlayState.showCutscene = true;
+				PlayState.practiceMode = false;
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 			});
 		}
@@ -454,7 +548,7 @@ class StoryMenuState extends MusicBeatState
 			txtTracklist.text += "\n" + i;
 		}
 
-		txtTracklist.text = txtTracklist.text.toUpperCase() + "\n";
+		txtTracklist.text = txtTracklist.text.toUpperCase();
 
 		txtTracklist.screenCenter(X);
 		txtTracklist.x -= FlxG.width * 0.35;
@@ -462,5 +556,27 @@ class StoryMenuState extends MusicBeatState
 		#if !switch
 		intendedScore = Highscore.getWeekScore(curWeek, curDifficulty);
 		#end
+	}
+	
+	override function beatHit()
+	{
+		super.beatHit();
+		//trace('beat hit lol!!!111');
+		tabiCharacter.animation.play('tabi');
+		if (!(curWeek >= 1))
+		{
+			grpWeekCharacters.members[0].animation.play(weekCharacters[curWeek][0]);
+		}
+		if (!stopspamming)
+		{
+			grpWeekCharacters.members[1].animation.play(weekCharacters[curWeek][1]);
+		}
+
+
+		danced = !danced;
+		if (danced)
+			grpWeekCharacters.members[2].animation.play('gf');
+		else
+			grpWeekCharacters.members[2].animation.play('gf');
 	}
 }

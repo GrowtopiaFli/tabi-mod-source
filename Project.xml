@@ -76,6 +76,10 @@
 		<library name="curse"    preload="false" />
 	</section>
 	
+	<!-- <library name="gifs"           preload="true" />
+	<assets path="assets/gifs"     library="gifs"/>
+	<haxelib name="yagp"/> -->
+	
 	<section if="SPECIAL">
 		<assets path="assets/special/songs" rename="assets/songs"   library="songs"    exclude="*.ogg" if="web"/>
 		<assets path="assets/special/songs" rename="assets/songs"   library="songs"    exclude="*.mp3" unless="web"/>
@@ -134,6 +138,7 @@
 	<haxelib name="discord_rpc" if='desktop'/>
 	<haxelib name="faxe" if='switch'/>
 	<!-- <haxelib name="polymod"/> -->
+	<haxelib name="yaml"/> <!-- haxelib install yaml -->
 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
 
 	<!-- <haxelib name="markdown" /> -->

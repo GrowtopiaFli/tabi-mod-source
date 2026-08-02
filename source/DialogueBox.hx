@@ -73,6 +73,8 @@ class DialogueBox extends FlxSpriteGroup
 	'gf',
 	'gf-talking',
 	'gf-hmm',
+	'gf-scared',
+	'gf-worried',
 	'gf-letsgo',
 	'tabi',
 	'tabi-mad',
@@ -200,11 +202,12 @@ class DialogueBox extends FlxSpriteGroup
 		box.x += 40;
 		}
 		
-		for (i in 0...10)
+		for (i in 0...extraCharnames.length)
 		{
 			var isRight:Bool = false;
-			var rightInts:Array<Int> = [1, 2, 3, 4, 5, 6];
-			if (rightInts.contains(i))
+			var rightInts:Array<Int> = [];
+
+			if (extraCharnames[i].contains('gf') || extraCharnames[i].contains('right') || extraCharnames[i] == 'bf-exp')
 			{
 				isRight = true;
 			}
@@ -260,12 +263,11 @@ class DialogueBox extends FlxSpriteGroup
 			/*swagDialogue.size = 16;
 			swagDialogue.font = '';
 			swagDialogue.color = FlxColor.BLACK;*/
-			var daFontSize:Int = 32;
-			if (Highscore.getRus())
-			{
-				daFontSize = 25;
-			}
-			swagDialogue.setFormat(Paths.font("15111.ttf"), daFontSize, 0xFF3F2021, LEFT);
+			var daObj:Dynamic = {};
+			daObj = MLanguageDialogueParser.settings();
+			var fontName:String = daObj.font;
+			var fontSize:Int = daObj.size;
+			swagDialogue.setFormat(Paths.font(fontName), fontSize, 0xFF3F2021, LEFT);
 		}
 		add(swagDialogue);
 
@@ -436,7 +438,7 @@ class DialogueBox extends FlxSpriteGroup
 				case 'chromeoffset':
 					var chromeOffset:Float = Std.parseFloat(dialogueList[0]);
 					chromeOffset /= 1000;
-					ChromaHandler.setChrome(chromeOffset);
+					ShadersHandler.setChrome(chromeOffset);
 				case 'musicloop':
 					if (Paths.exists(Paths.music(dialogueList[0])))
 					{

@@ -1,335 +1,170 @@
 ---SECTION START---
 :class:Cutscene1,
 :bg:cutscenes/0
+:musicloop:bgms/0
 :disableTypeSound:
 :switchSound:gfText
 :enableTypeSound:
-:gf-letsgo:Hey There Boyfriend!
+:gf-letsgo:%d1%
 :switchSound:bfText
-:bf-left:Beep!
+:bf-left:%d2%
 :switchSound:gfText
-:gf-letsgo:I Wanted To Tell You That Im Inviting You With Me To A Restaurant!
+:gf-letsgo:%d3%
 :switchSound:bfText
-:bf-left:Beep?
+:bf-left:%d4%
 :disableTypeSound:
 :sound:GF_3
-:gf-talking:Well, My Father's Friend Invited Me For Some Reason
+:gf-talking:%d5%
 :switchSound:bfText
 :enableTypeSound:
-:bf-left:Skboop Bep? Bep Dop Boop
+:bf-left:%d6%
 :switchSound:gfText
-:gf-letsgo:It's My Favorite Restaurant!
-:gf-hmm:I Wonder How He Knew...
-:gf-talking:Anyways! I Wanted To Take You Aswell, I Want Ya'll To Meet Each Other Already He's My Uncle!
+:gf-letsgo:%d7%
+:gf-hmm:%d8%
+:gf-talking:%d9%
 :switchSound:bfText
-:bf-left:Beep
+:bf-left:%d10%
 :switchSound:gfText
-:gf-letsgo:Great, Then I'm Going To Call For A Taxi
+:gf-letsgo:%d11%
 :disableTypeSound:
 :bg:cutscenes/0-b
-:noone:So They Went To The Restaurant To Meet Girlfriend's Uncle
+:musicstop:
+:musicloop:bgms/1
+:noone:%noone%
 :fadeIn:1
 :bg:cutscenes/1
-:musicloop:bgms/1
 :fadeOut:1
 :enableTypeSound:
-:gf:Hey Boyfriend, I Need To Go To The Bathroom, Wait For Me Here
+:gf:%d12%
 :switchSound:bfText
-:bf-left:Beep! Skbeep!
+:bf-left:%d13%
 :switchSound:gfText
-:gf-letsgo:Ahah! Okay, Okay! You Can Escort Me There My Love
+:gf-letsgo:%d14%
 :disableTypeSound:
 :sound:bfText
-:bf-left:*Shy Beeps*
+:bf-left:%d15%
 :enableTypeSound:
-:gf-letsgo:I Love You Too!
-:gf-talking:Huh? TABI?!
+:gf-letsgo:%d16%
+:gf-talking:%d17%
 :switchSound:tabiText
-:tabi-mad:...
+:tabi-mad:%d18%
 :switchSound:bfText
-:bf-right:Skbeep?
+:bf-right:%d19%
 :disableTypeSound:
 :sound:GF_1
-:gf-worried:Shit...
+:gf-worried:%d20%
 :class-use:Cutscene1
 :bg:cutscenes/2
 :switchSound:tabiText
 :enableTypeSound:
-:tabi:So We Finally Meet After 1 Year Of Hiding
+:tabi:%d21%
 :disableTypeSound:
 :sound:GF_4
-:gf-scared:*Shaking From Fear*
+:gf-scared:%d22%
 :enableTypeSound:
-:tabi-mad:Wait? Who Are YOU?
+:tabi-mad:%d23%
 :switchSound:bfText
-:bf-right:Beep Bop Skbeep
+:bf-right:%d24%
 :switchSound:tabiText
-:tabi:So You Already Started Dating Another Guy, Yet Another Victim Huh?
-:tabi:Listen Dude, This Is My Battle Not Yours Just Let Me End This All, Leave!
+:tabi:%d25%
+:tabi:%d26%
 :switchSound:bfText
-:bf-right:Beep Bop Dop Skbop
+:bf-right:%d27%
 :switchSound:tabiText
-:tabi-mad:You Do Realize That She Is Just Using You, Right?
+:tabi-mad:%d28%
 :musicstop:
 ---SECTION END---
 
 ---SECTION START---
 :class:Cutscene1,
 :bg:cutscenes/0
+:musicloop:bgms/0
 :disableTypeSound:
 :switchSound:bfText
 :soundoverwrite:voices/home/1
-:gf-letsgo:Hey There Boyfriend!
+:gf-letsgo:%d1%
 :soundoverwritestop:
 :enableTypeSound:
-:bf-left:Beep!
+:bf-left:%d2%
 :disableTypeSound:
 :soundoverwrite:voices/home/2
-:gf-letsgo:I Wanted To Tell You That Im Inviting You With Me To A Restaurant!
+:gf-letsgo:%d3%
 :soundoverwritestop:
 :enableTypeSound:
-:bf-left:Beep?
+:bf-left:%d4%
 :disableTypeSound:
 :soundoverwrite:voices/home/3
-:gf-talking:Well, My Father's Friend Invited Me For Some Reason
+:gf-talking:%d5%
 :soundoverwritestop:
 :enableTypeSound:
-:bf-left:Skboop Bep? Bep Dop Boop
+:bf-left:%d6%
 :disableTypeSound:
 :soundoverwrite:voices/home/4
-:gf-letsgo:It's My Favorite Restaurant!
+:gf-letsgo:%d7%
 :soundoverwrite:voices/home/5
-:gf-hmm:I Wonder How He Knew...
+:gf-hmm:%d8%
 :soundoverwrite:voices/home/6
-:gf-talking:Anyways! I Wanted To Take You Aswell, I Want Ya'll To Meet Each Other Already He's My Uncle!
+:gf-talking:%d9%
 :soundoverwritestop:
 :enableTypeSound:
-:bf-left:Beep
+:bf-left:%d10%
 :disableTypeSound:
 :soundoverwrite:voices/home/7
-:gf-letsgo:Great, Then I'm Going To Call For A Taxi
+:gf-letsgo:%d11%
 :disableTypeSound:
 :bg:cutscenes/0-b
-:noone:So They Went To The Restaurant To Meet Girlfriend's Uncle
+:musicloop:bgms/1
+:noone:%noone%
 :fadeIn:1
 :bg:cutscenes/1
-:musicloop:bgms/1
 :fadeOut:1
 :soundoverwrite:voices/bath/1
-:gf:Hey Boyfriend, I Need To Go To The Bathroom, Wait For Me Here
+:gf:%d12%
 :soundoverwritestop:
 :enableTypeSound:
-:bf-left:Beep! Skbeep!
+:bf-left:%d13%
 :disableTypeSound:
 :soundoverwrite:voices/bath/2
-:gf-letsgo:Ahah! Okay, Okay! You Can Escort Me There My Love
+:gf-letsgo:%d14%
 :soundoverwritestop:
 :sound:bfText
-:bf-left:*Shy Beeps*
+:bf-left:%d15%
 :soundoverwrite:voices/bath/3
-:gf-letsgo:I Love You Too!
+:gf-letsgo:%d16%
 :soundoverwrite:voices/bath/4
-:gf-talking:Huh? TABI?!
+:gf-talking:%d17%
 :switchSound:tabiText
 :enableTypeSound:
-:tabi-mad:...
+:tabi-mad:%d18%
 :switchSound:bfText
-:bf-right:Skbeep?
+:bf-right:%d19%
 :disableTypeSound:
 :soundoverwrite:voices/bath/5
-:gf-worried:Shit...
+:gf-worried:%d20%
 :soundoverwritestop:
 :class-use:Cutscene1
 :bg:cutscenes/2
 :soundoverwrite:voices/tabi1/1
-:tabi:So We Finally Meet After 1 Year Of Hiding
+:tabi:%d21%
 :soundoverwritestop:
 :sound:GF_4
-:gf-scared:*Shaking From Fear*
+:gf-scared:%d22%
 :soundoverwrite:voices/tabi1/2
-:tabi-mad:Wait? Who Are YOU?
+:tabi-mad:%d23%
 :soundoverwritestop:
 :enableTypeSound:
-:bf-right:Beep Bop Skbeep
+:bf-right:%d24%
 :disableTypeSound:
 :soundoverwrite:voices/tabi1/3
-:tabi:So You Already Started Dating Another Guy, Yet Another Victim Huh?
+:tabi:%d25%
 :soundoverwrite:voices/tabi1/4
-:tabi:Listen Dude, This Is My Battle Not Yours Just Let Me End This All, Leave!
+:tabi:%d26%
 :soundoverwritestop:
 :enableTypeSound:
-:bf-right:Beep Bop Dop Skbop
+:bf-right:%d27%
 :disableTypeSound:
 :soundoverwrite:voices/tabi1/5
-:tabi-mad:You Do Realize That She Is Just Using You, Right?
-:soundoverwritestop:
-:musicstop:
----SECTION END---
-
----SECTION START---
-:class:Cutscene1,
-:bg:cutscenes/0
-:disableTypeSound:
-:switchSound:gfText
-:enableTypeSound:
-:gf-letsgo:Приветик бойфренд!
-:switchSound:bfText
-:bf-left:Бип!
-:switchSound:gfText
-:gf-letsgo:Я хотела тебе сказать, что приглашаю тебя в ресторан!
-:switchSound:bfText
-:bf-left:Бип?
-:disableTypeSound:
-:sound:GF_3
-:gf-talking:Хороший друг моего отца, ну, мой дядя, пригласил меня туда по какой-то причине
-:switchSound:bfText
-:enableTypeSound:
-:bf-left:Скбуп, биип доб скбииб?
-:switchSound:gfText
-:gf-letsgo:А! Ещё, он как раз выбрал мой любимый ресторан
-:gf-hmm:интересно, откуда он узнал...
-:gf-talking:Не важно! Я хотела тебя взять с собой, чтобы вы наконец-то встретились с ним, он же мой дядя!
-:switchSound:bfText
-:bf-left:бип
-:switchSound:gfText
-:gf-letsgo:Отлично, тогда я закажу вам
-:disableTypeSound:
-:bg:cutscenes/0-b
-:noone:И так, они отправились в ресторан на такси
-:fadeIn:1
-:bg:cutscenes/1
-:musicloop:bgms/1
-:fadeOut:1
-:enableTypeSound:
-:gf:Хей, бойфренд, мне нужно в дамскую комнату, подожди меня тут
-:switchSound:bfText
-:bf-left:Биип! Скбиип!
-:switchSound:gfText
-:gf-letsgo:Ахаха, ладно-ладно, так уж и быть, разрешаю вам провести меня до туалета, мой любимый кавалер
-:disableTypeSound:
-:sound:bfText
-:bf-left:*стеснительные бип бопы*
-:enableTypeSound:
-:gf-letsgo:Хех, люблю тебя
-:gf-talking:ЧТО? ТАБИ?!
-:switchSound:tabiText
-:tabi-mad:...
-:switchSound:bfText
-:bf-right:Скбип?
-:disableTypeSound:
-:sound:GF_1
-:gf-worried:черт…
-:class-use:Cutscene1
-:bg:cutscenes/2
-:switchSound:tabiText
-:enableTypeSound:
-:tabi:Значит… после целого года пряток мы наконец с тобой встретились?
-:disableTypeSound:
-:sound:GF_4
-:gf-scared:*выглядит напряжённой*
-:enableTypeSound:
-:tabi-mad:Хм?, а ТЫ кто ещё такой?
-:switchSound:bfText
-:bf-right:Бип бооп скбип!
-:switchSound:tabiText
-:tabi:Значит ты нашла нового жениха уже, не так ли?
-:tabi:Слушай малыш, это мой бой, не твой, оставь нас с ней одних, уходи
-:switchSound:bfText
-:bf-right:Бип боп скбоп!
-:switchSound:tabiText
-:tabi-mad:Надеюсь ты понимаешь, что она использует тебя для своей выгоды?
-:musicstop:
----SECTION END---
-
----SECTION START---
-:class:Cutscene1,
-:bg:cutscenes/0
-:disableTypeSound:
-:switchSound:bfText
-:soundoverwrite:voices/home/1
-:gf-letsgo:Приветик бойфренд!
-:soundoverwritestop:
-:enableTypeSound:
-:bf-left:Бип!
-:disableTypeSound:
-:soundoverwrite:voices/home/2
-:gf-letsgo:Я хотела тебе сказать, что приглашаю тебя в ресторан!
-:soundoverwritestop:
-:enableTypeSound:
-:bf-left:Бип?
-:disableTypeSound:
-:soundoverwrite:voices/home/3
-:gf-talking:Хороший друг моего отца, ну, мой дядя, пригласил меня туда по какой-то причине
-:soundoverwritestop:
-:enableTypeSound:
-:bf-left:Скбуп, биип доб скбииб?
-:disableTypeSound:
-:soundoverwrite:voices/home/4
-:gf-letsgo:А! Ещё, он как раз выбрал мой любимый ресторан
-:soundoverwrite:voices/home/5
-:gf-hmm:интересно, откуда он узнал...
-:soundoverwrite:voices/home/6
-:gf-talking:Не важно! Я хотела тебя взять с собой, чтобы вы наконец-то встретились с ним, он же мой дядя!
-:soundoverwritestop:
-:enableTypeSound:
-:bf-left:бип
-:disableTypeSound:
-:soundoverwrite:voices/home/7
-:gf-letsgo:Отлично, тогда я закажу вам
-:disableTypeSound:
-:bg:cutscenes/0-b
-:noone:И так, они отправились в ресторан на такси
-:fadeIn:1
-:bg:cutscenes/1
-:musicloop:bgms/1
-:fadeOut:1
-:soundoverwrite:voices/bath/1
-:gf:Хей, бойфренд, мне нужно в дамскую комнату, подожди меня тут
-:soundoverwritestop:
-:enableTypeSound:
-:bf-left:Биип! Скбиип!
-:disableTypeSound:
-:soundoverwrite:voices/bath/2
-:gf-letsgo:Ахаха, ладно-ладно, так уж и быть, разрешаю вам провести меня до туалета, мой любимый кавалер
-:soundoverwritestop:
-:sound:bfText
-:bf-left:*стеснительные бип бопы*
-:soundoverwrite:voices/bath/3
-:gf-letsgo:Хех, люблю тебя
-:soundoverwrite:voices/bath/4
-:gf-talking:ЧТО? ТАБИ?!
-:switchSound:tabiText
-:enableTypeSound:
-:tabi-mad:...
-:switchSound:bfText
-:bf-right:Скбип?
-:disableTypeSound:
-:soundoverwrite:voices/bath/5
-:gf-worried:черт…
-:soundoverwritestop:
-:class-use:Cutscene1
-:bg:cutscenes/2
-:soundoverwrite:voices/tabi1/1
-:tabi:Значит… после целого года пряток мы наконец с тобой встретились?
-:soundoverwritestop:
-:sound:GF_4
-:gf-scared:*выглядит напряжённой*
-:soundoverwrite:voices/tabi1/2
-:tabi-mad:Хм?, а ТЫ кто ещё такой?
-:soundoverwritestop:
-:enableTypeSound:
-:bf-right:Бип бооп скбип!
-:disableTypeSound:
-:soundoverwrite:voices/tabi1/3
-:tabi:Значит ты нашла нового жениха уже, не так ли?
-:soundoverwrite:voices/tabi1/4
-:tabi:Слушай малыш, это мой бой, не твой, оставь нас с ней одних, уходи
-:soundoverwritestop:
-:enableTypeSound:
-:bf-right:Бип боп скбоп!
-:disableTypeSound:
-:soundoverwrite:voices/tabi1/5
-:tabi-mad:Надеюсь ты понимаешь, что она использует тебя для своей выгоды?
+:tabi-mad:%d28%
 :soundoverwritestop:
 :musicstop:
 ---SECTION END---

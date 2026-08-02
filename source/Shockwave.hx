@@ -1,3 +1,4 @@
+/*
 package;
 
 import flixel.system.FlxAssets.FlxShader;
@@ -64,3 +65,4 @@ class Shockwave extends FlxShader
 		super();
 	}
 }
+*/

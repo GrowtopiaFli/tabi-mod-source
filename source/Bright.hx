@@ -22,7 +22,5 @@ class Bright extends FlxShader
 	public function new()
 	{
 		super();
-		
-		this.contrast.value = [1.0];
 	}
 }

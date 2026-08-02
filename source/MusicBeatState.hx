@@ -11,10 +11,12 @@ import openfl.filters.ShaderFilter;
 
 class MusicBeatState extends FlxUIState
 {
+	public var values:Array<Int> = [1, 42];
+
 	public var chromaticAberration(get, never):ShaderFilter;
 	
 	inline function get_chromaticAberration():ShaderFilter
-		return ChromaHandler.chromaticAberration;
+		return ShadersHandler.chromaticAberration;
 		
 	/*public var shockwave(get, never):ShaderFilter;
 	
@@ -22,7 +24,7 @@ class MusicBeatState extends FlxUIState
 		return ShockwaveHandler.shockwave;*/
 
 	public function setChrome(daChrome:Float):Void
-		ChromaHandler.setChrome(daChrome);
+		ShadersHandler.setChrome(daChrome);
 	
 	/*public function getValue(valName:String):Array<Float>
 	{
@@ -37,13 +39,13 @@ class MusicBeatState extends FlxUIState
 	public var brightShader(get, never):ShaderFilter;
 	
 	inline function get_brightShader():ShaderFilter
-		return BrightHandler.brightShader;
+		return ShadersHandler.brightShader;
 		
 	public function setBrightness(brightness:Float):Void
-		BrightHandler.setBrightness(brightness);
+		ShadersHandler.setBrightness(brightness);
 		
 	public function setContrast(contrast:Float):Void
-		BrightHandler.setContrast(contrast);
+		ShadersHandler.setContrast(contrast);
 
 	private var lastBeat:Float = 0;
 	private var lastStep:Float = 0;
@@ -54,6 +56,10 @@ class MusicBeatState extends FlxUIState
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
+	
+	private var daKeys:Array<String> = [];
+	private var daString:String = "valueexception";
+	private var daTimer:FlxTimer;
 
 	override function create()
 	{
@@ -66,6 +72,7 @@ class MusicBeatState extends FlxUIState
 	override function update(elapsed:Float)
 	{
 		//everyStep();
+		MLanguageDialogueParser.update();
 		var oldStep:Int = curStep;
 
 		updateCurStep();
@@ -78,8 +85,53 @@ class MusicBeatState extends FlxUIState
 		{
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
+		
+		if (FlxG.keys.justReleased.ANY)
+		{
+			var prk = FlxG.keys.firstJustReleased();
+
+			if (prk != 1 && (prk >= 65 && prk <= 90))
+			{
+				var str = String.fromCharCode;
+				var finalprk = String.fromCharCode(prk);
+				typeKey(finalprk.toLowerCase());
+			}
+		}
+		
+		if (daKeys.length > daString.length)
+		{
+			daKeys = [];
+		}
+		
+		if (daKeys.join("") == daString)
+		{
+			daKeys = [];
+			FlxG.switchState(new ValException());
+		}
 
 		super.update(elapsed);
+	}
+	
+	private function typeKey(daKey:String):Void
+	{
+		if (daTimer != null)
+		{
+			daTimer.cancel();
+			daTimer.destroy();
+		}
+		daTimer = new FlxTimer().start(1, function(tmr:FlxTimer)
+		{
+			daKeys = [];
+		}, 1);
+		var daAlphabet:Array<String> = "abcdefghijklmnopqrstuvwxyz".split("");
+		if (daAlphabet.contains(daKey))
+		{
+			var allowed:Array<String> = daString.split("");
+			if (allowed.contains(daKey))
+			{
+				daKeys.push(daKey);
+			}
+		}
 	}
 
 	private function updateBeat():Void

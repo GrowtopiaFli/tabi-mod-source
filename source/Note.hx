@@ -235,15 +235,16 @@ class Note extends FlxSprite
 
 		if (mustPress)
 		{
+			//unused cuz kade trashed me for sarv engine lol
 			var multiplier1:Float = 1;
 			var multiplier2:Float = 0.5;
 			var multiplier1Orig:Float = 1;
 			var multiplier2Orig:Float = 0.5;
-			if (Highscore.getInput())
+			/*if (Highscore.getInput())
 			{
 				multiplier1 = 4;
 				multiplier2 = 0.85;
-			}
+			}*/
 			// The * 0.5 is so that it's easier to hit them too late, instead of too early
 			if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * multiplier1)
 				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * multiplier2))

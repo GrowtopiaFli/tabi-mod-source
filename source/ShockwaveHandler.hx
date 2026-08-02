@@ -1,3 +1,4 @@
+/*
 package;
 
 import openfl.filters.ShaderFilter;
@@ -45,3 +46,4 @@ class ShockwaveHandler
 		}
 	}
 }
+*/

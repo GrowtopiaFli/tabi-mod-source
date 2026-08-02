@@ -7,12 +7,21 @@ import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
+import flixel.FlxCamera;
+#if (web || android)
+import ui.FlxVirtualPad;
+#end
+
 class GameOverSubstate extends MusicBeatSubstate
 {
 	var bf:Boyfriend;
 	var camFollow:FlxObject;
 
 	var stageSuffix:String = "";
+	
+	#if (web || android)
+	var _pad:FlxVirtualPad;
+	#end
 
 	public function new(daBfShit:Boyfriend)
 	{
@@ -65,18 +74,41 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		bf.playAnim('firstDeath');
+		
+		#if (web || android)
+		_pad = new FlxVirtualPad(NONE, A_B);
+		_pad.alpha = 0.75;
+		add(_pad);
+		#end
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		
+		var accepted:Bool = false;
+		var backed:Bool = false;
+		
+		#if (web || android)
+		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
+		backed = controls.BACK || _pad.buttonB.justPressed;
+		#if android
+		if (FlxG.android.justReleased.BACK)
+		{
+		backed = true;
+		}
+		#end
+		#else
+		accepted = controls.ACCEPT;
+		backed = controls.BACK;
+		#end
 
-		if (controls.ACCEPT)
+		if (accepted)
 		{
 			endBullshit();
 		}
 
-		if (controls.BACK)
+		if (backed)
 		{
 			FlxG.sound.music.stop();
 

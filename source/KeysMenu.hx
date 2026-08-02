@@ -17,6 +17,11 @@ import flixel.util.FlxTimer;
 import Discord.DiscordClient;
 #end
 
+import flixel.FlxCamera;
+#if (web || android)
+import ui.FlxVirtualPad;
+#end
+
 using StringTools;
 
 class KeysMenu extends MusicBeatState
@@ -31,13 +36,31 @@ class KeysMenu extends MusicBeatState
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
+	
+	var mainCam:FlxCamera;
+	var higherCam:FlxCamera;
+	
+	#if (web || android)
+	var _pad:FlxVirtualPad;
+	#end
 
 	override function create()
 	{	
-		if (!FlxG.sound.music.playing)
-		{
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
-		}
+		mainCam = new FlxCamera();
+		higherCam = new FlxCamera();
+		higherCam.bgColor.alpha = 0;
+	
+		FlxG.cameras.reset(mainCam);
+		FlxG.cameras.add(higherCam);
+		
+		FlxCamera.defaultCameras = [mainCam];
+		
+		#if (web || android)
+		_pad = new FlxVirtualPad(UP_DOWN, A_B);
+		_pad.alpha = 0.65;
+		add(_pad);
+		_pad.cameras = [higherCam];
+		#end
 		
 		#if desktop
 		// Updating Discord Rich Presence
@@ -58,7 +81,7 @@ class KeysMenu extends MusicBeatState
 
 		if (!FlxG.sound.music.playing)
 		{
-		FlxG.sound.playMusic(Paths.music('brosucks'), 0, true);
+		FlxG.sound.playMusic(Paths.music('options'), 0, true);
 		FlxG.sound.music.fadeIn(2, 0, 0.8);
 		}
 		selector = new FlxText();
@@ -141,7 +164,9 @@ class KeysMenu extends MusicBeatState
 		item.color = 0xFFffff;
 	}
 	
+	#if !web
 	grpSongs.members[curSelected].color = 0xFFff33;
+	#end
 	
 	}
 
@@ -153,7 +178,9 @@ class KeysMenu extends MusicBeatState
 		{
 		grpSongs.members[curSelected].color = 0x33FFFF;
 		} else {
+		#if !web
 		grpSongs.members[curSelected].color = 0xFFff33;
+		#end
 		}
 		
 		var disableBoi:Bool = false;
@@ -221,9 +248,28 @@ class KeysMenu extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		var upP = controls.UP_P;
-		var downP = controls.DOWN_P;
-		var accepted = controls.ACCEPT;
+		var upP:Bool = false;
+		var downP:Bool = false;
+		var accepted:Bool = false;
+		var backed:Bool = false;
+		
+		#if (web || android)
+		upP = controls.UP_P || _pad.buttonUp.justPressed;
+		downP = controls.DOWN_P || _pad.buttonDown.justPressed;
+		accepted = controls.ACCEPT || _pad.buttonA.justPressed;
+		backed = controls.BACK || _pad.buttonB.justPressed;
+		#if android
+		if (FlxG.android.justReleased.BACK)
+		{
+		backed = true;
+		}
+		#end
+		#else
+		upP = controls.UP_P;
+		downP = controls.DOWN_P;
+		accepted = controls.ACCEPT;
+		backed = controls.BACK;
+		#end
 
 		if (!selectMode)
 		{
@@ -241,11 +287,11 @@ class KeysMenu extends MusicBeatState
 			changeSelection(FlxG.mouse.wheel * -1);
 		}
 
-		if (controls.BACK)
+		if (backed)
 		{
 			FlxG.switchState(new SettingsMenu());
 		}
-		} else if (controls.BACK)
+		} else if (backed)
 		{
 		fuckTheClearance();
 		selectMode = false;

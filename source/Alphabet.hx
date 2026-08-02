@@ -22,6 +22,7 @@ class Alphabet extends FlxSpriteGroup
 	public var isMenuItem:Bool = false;
 	public var noAnim:Bool = false;
 	public var noAnimAh:Bool = false;
+	public var horizontal:Bool = false;
 
 	public var text:String = "";
 
@@ -251,6 +252,8 @@ class Alphabet extends FlxSpriteGroup
 	{
 		if (isMenuItem)
 		{
+			if (!horizontal)
+			{
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 			if (!noAnimAh)
 			{
@@ -266,6 +269,13 @@ class Alphabet extends FlxSpriteGroup
 			{
 			y = (scaledY * 120) + (FlxG.height * 0.48);
 			x = (targetY * 20) + 90;
+			}
+			}
+			else
+			{
+			var halfW:Float = FlxG.width / 2 - width / 2;
+			y = FlxMath.lerp(y, (FlxG.height / 2 - (Math.abs(targetY * height) / 2)) - Math.abs(targetY * 20), 0.16);
+			x = FlxMath.lerp(x, targetY * halfW + halfW, 0.16);
 			}
 		}
 

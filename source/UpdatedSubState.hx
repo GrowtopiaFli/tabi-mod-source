@@ -7,7 +7,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.app.Application;
 
-class OutdatedSubState extends MusicBeatState
+class UpdatedSubState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 	public static var daVer:String = "I DONT KNOW";
@@ -19,10 +19,15 @@ class OutdatedSubState extends MusicBeatState
 		add(bg);
 		var ver = "v" + Application.current.meta.get('version');
 		var txt:FlxText = new FlxText(0, 0, FlxG.width,
-			"UGH!\n" +
-			"Your Version Of Tabi Is So Outdated...\n" +
-			"BRUH You Have Version " + CurrentVersion.get() + " Of Tabi...\n" +
-			"The Latest Version Out There Is " + daVer + "\n" +
+			"Hello This Is GWeb And I Am The Tabi Police :)\n" +
+			"Answer This Question Right Now!\n" +
+			"How Did You Get A Hold Of This Version?\n" +
+			"The Version On Github Is " + daVer + "\n" +
+			"While This One Is " + CurrentVersion.get() + "!\n" +
+			"H O W ?\n" +
+			"IDK It's Either You Stole It From Us/Your One Of The Devs/You Manipulated The Version Code\n" +
+			"I Don't Really Care...\n" +
+			"Just Don't Steal\n" +
 			"What Are You Waiting For...\n\n" +
 			"PRESS ENTER If You Want To Go To The Gamebanana Page!\n" +
 			"Or Back To Go To The Menu",

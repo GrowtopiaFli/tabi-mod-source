@@ -45,11 +45,9 @@
       "version": "9.1.0"
     },
     {
-      "name": "polymod",
-      "type": "git",
-      "dir": null,
-      "ref": "v1.3.1",
-      "url": "https://github.com/larsiusprime/polymod"
+      "name": "yaml",
+      "type": "haxelib",
+      "version": null
     }
   ]
 }

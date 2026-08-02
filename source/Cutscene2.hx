@@ -276,16 +276,16 @@ class Cutscene2 extends FlxSpriteGroup
 			curSound3 = FlxG.sound.play(Paths.sound('afterexplode'));
 			updateShit2 = true;
 		}, 1);
-		ChromaHandler.setChrome(10 / 1000);
+		ShadersHandler.setChrome(10 / 1000);
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
-				ChromaHandler.setChrome(6 / 1000);
+				ShadersHandler.setChrome(6 / 1000);
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					ChromaHandler.setChrome(5 / 1000);
+					ShadersHandler.setChrome(5 / 1000);
 					new FlxTimer().start(0.5, function(tmr:FlxTimer)
 					{
-						ChromaHandler.setChrome(3 / 1000);
+						ShadersHandler.setChrome(3 / 1000);
 					}, 1);
 				}, 1);
 			}, 1);
@@ -300,7 +300,7 @@ class Cutscene2 extends FlxSpriteGroup
 		visible = false;
 		startUpdate = false;
 		camera.zoom = 1;
-		ChromaHandler.setChrome(0.0);
+		ShadersHandler.setChrome(0.0);
 		finishCallback();
 		kill();
 	}
